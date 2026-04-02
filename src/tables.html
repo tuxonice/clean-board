@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tables — Admin Template</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        background-color: #f5f6fa;
+      }
+
+      /* Layout */
+      .layout-wrapper {
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        width: 250px;
+        background-color: #1f2937;
+        color: #fff;
+        flex-shrink: 0;
+        padding: 1rem;
+        transition: width 0.3s;
+      }
+      .sidebar .nav-link {
+        color: #cbd5e1;
+        margin: 5px 0;
+      }
+      .sidebar .nav-link.active,
+      .sidebar .nav-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+      }
+
+      /* Content */
+      .content {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 2rem;
+      }
+
+      /* Topbar */
+      .topbar {
+        background: #fff;
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #e5e7eb;
+        margin: -2rem -2rem 0 -2rem;
+      }
+
+      /* Notifications */
+      .notif-item.unread {
+        background-color: #f0f4ff;
+      }
+      .notif-item:hover {
+        background-color: #f5f6fa;
+      }
+
+      /* Responsive sidebar toggle */
+      @media (max-width: 991px) {
+        .sidebar {
+          position: fixed;
+          height: 100%;
+          left: -250px;
+        }
+        .sidebar.open {
+          left: 0;
+        }
+      }
+
+      /* Table toolbar */
+      .table-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+    </style>
+</head>
+
+<body>
+<div class="layout-wrapper">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar">
+        <h4 class="mb-4">MyAdmin</h4>
+        <nav class="nav flex-column">
+            <a class="nav-link" href="index.html"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
+            <a class="nav-link active" href="tables.html"><i class="bi bi-table me-2"></i> Tables</a>
+            <a class="nav-link" href="forms.html"><i class="bi bi-ui-checks me-2"></i> Forms</a>
+            <a class="nav-link" href="cards.html"><i class="bi bi-card-heading me-2"></i> Cards</a>
+            <a class="nav-link" href="tabs.html"><i class="bi bi-folder-symlink me-2"></i> Tabs</a>
+            <a class="nav-link" href="modals.html"><i class="bi bi-layout-modal me-2"></i> Modals</a>
+            <a class="nav-link" href="#"><i class="bi bi-people me-2"></i> Users</a>
+            <a class="nav-link" href="#"><i class="bi bi-gear me-2"></i> Settings</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="content">
+
+        <!-- Topbar -->
+        <div class="topbar d-flex justify-content-between align-items-center">
+            <button class="btn btn-outline-secondary d-lg-none" id="menu-btn">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div class="ms-auto d-flex align-items-center gap-3">
+                <!-- Notification Bell -->
+                <div class="dropdown">
+                    <button class="btn btn-link text-dark p-0 position-relative" id="notif-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-bell fs-5"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="notif-badge">3</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end shadow" style="width: 320px;" aria-labelledby="notif-btn">
+                        <div class="d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
+                            <span class="fw-semibold">Notifications</span>
+                            <button class="btn btn-link btn-sm text-decoration-none p-0" id="mark-all-read">Mark all as read</button>
+                        </div>
+                        <ul class="list-unstyled mb-0" id="notif-list">
+                            <li class="notif-item unread px-3 py-2 border-bottom d-flex gap-2 align-items-start">
+                                <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;">
+                                    <i class="bi bi-person-plus"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="fw-semibold small">New user registered</span>
+                                        <span class="text-muted" style="font-size:0.7rem;">2m ago</span>
+                                    </div>
+                                    <p class="mb-0 text-muted small">Eva Rossi created an account.</p>
+                                </div>
+                            </li>
+                            <li class="notif-item unread px-3 py-2 border-bottom d-flex gap-2 align-items-start">
+                                <div class="rounded-circle bg-warning bg-opacity-10 text-warning d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;">
+                                    <i class="bi bi-exclamation-triangle"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="fw-semibold small">Low stock alert</span>
+                                        <span class="text-muted" style="font-size:0.7rem;">1h ago</span>
+                                    </div>
+                                    <p class="mb-0 text-muted small">USB-C Hub is out of stock.</p>
+                                </div>
+                            </li>
+                            <li class="notif-item unread px-3 py-2 border-bottom d-flex gap-2 align-items-start">
+                                <div class="rounded-circle bg-success bg-opacity-10 text-success d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;">
+                                    <i class="bi bi-bag-check"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="fw-semibold small">Order delivered</span>
+                                        <span class="text-muted" style="font-size:0.7rem;">3h ago</span>
+                                    </div>
+                                    <p class="mb-0 text-muted small">Order #ORD-005 was delivered.</p>
+                                </div>
+                            </li>
+                            <li class="notif-item px-3 py-2 border-bottom d-flex gap-2 align-items-start">
+                                <div class="rounded-circle bg-secondary bg-opacity-10 text-secondary d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;">
+                                    <i class="bi bi-chat-left-text"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="fw-semibold small">New comment</span>
+                                        <span class="text-muted" style="font-size:0.7rem;">Yesterday</span>
+                                    </div>
+                                    <p class="mb-0 text-muted small">Bob left a comment on Report Q1.</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="text-center py-2">
+                            <a href="#" class="btn btn-link btn-sm text-decoration-none">View all notifications</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- User Avatar -->
+                <div class="dropdown">
+                    <button class="btn btn-link p-0 border-0" id="user-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://i.pravatar.cc/40" class="rounded-circle" style="width:36px;height:36px;object-fit:cover;">
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="user-btn">
+                        <li>
+                            <div class="px-3 py-2 border-bottom">
+                                <div class="fw-semibold">Alice Martin</div>
+                                <small class="text-muted">alice@example.com</small>
+                            </div>
+                        </li>
+                        <li><a class="dropdown-item d-flex align-items-center gap-2 mt-1" href="#"><i class="bi bi-person"></i> Profile</a></li>
+                        <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i class="bi bi-gear"></i> Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="#"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <h1 class="mt-4">Tables</h1>
+        <p class="lead">Examples of table styles and configurations.</p>
+
+        <!-- Basic Table -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header fw-semibold">Basic Table</div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Alice Martin</td>
+                                <td>alice@example.com</td>
+                                <td>Admin</td>
+                                <td><span class="badge text-bg-success">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Bob Chen</td>
+                                <td>bob@example.com</td>
+                                <td>Editor</td>
+                                <td><span class="badge text-bg-success">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Carol White</td>
+                                <td>carol@example.com</td>
+                                <td>Viewer</td>
+                                <td><span class="badge text-bg-warning text-dark">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>David Kim</td>
+                                <td>david@example.com</td>
+                                <td>Editor</td>
+                                <td><span class="badge text-bg-danger">Inactive</span></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Eva Rossi</td>
+                                <td>eva@example.com</td>
+                                <td>Viewer</td>
+                                <td><span class="badge text-bg-success">Active</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table with Search + Actions -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header fw-semibold">Table with Search &amp; Actions</div>
+            <div class="card-body border-bottom">
+                <div class="table-toolbar">
+                    <div class="input-group" style="max-width: 280px;">
+                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                        <input type="text" id="search-input" class="form-control" placeholder="Search orders…">
+                    </div>
+                    <button class="btn btn-primary btn-sm">
+                        <i class="bi bi-plus-lg me-1"></i> New Order
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0" id="orders-table">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#ORD-001</td>
+                                <td>Alice Martin</td>
+                                <td>2026-03-12</td>
+                                <td>$120.00</td>
+                                <td><span class="badge text-bg-success">Delivered</span></td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></button>
+                                        <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#ORD-002</td>
+                                <td>Bob Chen</td>
+                                <td>2026-03-18</td>
+                                <td>$85.50</td>
+                                <td><span class="badge text-bg-warning text-dark">Pending</span></td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></button>
+                                        <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#ORD-003</td>
+                                <td>Carol White</td>
+                                <td>2026-03-22</td>
+                                <td>$240.00</td>
+                                <td><span class="badge text-bg-info text-dark">Shipped</span></td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></button>
+                                        <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#ORD-004</td>
+                                <td>David Kim</td>
+                                <td>2026-03-29</td>
+                                <td>$59.99</td>
+                                <td><span class="badge text-bg-danger">Cancelled</span></td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></button>
+                                        <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#ORD-005</td>
+                                <td>Eva Rossi</td>
+                                <td>2026-04-01</td>
+                                <td>$310.00</td>
+                                <td><span class="badge text-bg-success">Delivered</span></td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></button>
+                                        <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center">
+                <small class="text-muted">Showing 5 of 5 results</small>
+                <nav>
+                    <ul class="pagination pagination-sm mb-0">
+                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Striped + Bordered Table -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header fw-semibold">Striped &amp; Bordered</div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Product</th>
+                                <th>SKU</th>
+                                <th>Category</th>
+                                <th>Stock</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Wireless Mouse</td>
+                                <td>SKU-1001</td>
+                                <td>Electronics</td>
+                                <td>142</td>
+                                <td>$29.99</td>
+                            </tr>
+                            <tr>
+                                <td>Mechanical Keyboard</td>
+                                <td>SKU-1002</td>
+                                <td>Electronics</td>
+                                <td>58</td>
+                                <td>$89.00</td>
+                            </tr>
+                            <tr>
+                                <td>USB-C Hub</td>
+                                <td>SKU-1003</td>
+                                <td>Accessories</td>
+                                <td>0</td>
+                                <td>$45.00</td>
+                            </tr>
+                            <tr>
+                                <td>Monitor Stand</td>
+                                <td>SKU-1004</td>
+                                <td>Furniture</td>
+                                <td>27</td>
+                                <td>$55.00</td>
+                            </tr>
+                            <tr>
+                                <td>Webcam HD</td>
+                                <td>SKU-1005</td>
+                                <td>Electronics</td>
+                                <td>93</td>
+                                <td>$74.50</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /.content -->
+</div><!-- /.layout-wrapper -->
+
+<!-- Bootstrap & JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Notifications: mark all as read
+  document.getElementById("mark-all-read").addEventListener("click", (e) => {
+    e.preventDefault();
+    document.querySelectorAll(".notif-item.unread").forEach(el => el.classList.remove("unread"));
+    const badge = document.getElementById("notif-badge");
+    badge.textContent = "0";
+    badge.classList.add("d-none");
+  });
+
+  // Mobile sidebar toggle
+  const menuBtn = document.getElementById("menu-btn");
+  const sidebar = document.getElementById("sidebar");
+
+  menuBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("open");
+  });
+
+  // Live search for orders table
+  const searchInput = document.getElementById("search-input");
+  const ordersTable = document.getElementById("orders-table");
+
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.toLowerCase();
+    const rows = ordersTable.querySelectorAll("tbody tr");
+    rows.forEach(row => {
+      const text = row.textContent.toLowerCase();
+      row.style.display = text.includes(query) ? "" : "none";
+    });
+  });
+</script>
+</body>
+</html>

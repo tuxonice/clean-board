@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cards — Admin Template</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        background-color: #f5f6fa;
+      }
+
+      /* Layout */
+      .layout-wrapper {
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        width: 250px;
+        background-color: #1f2937;
+        color: #fff;
+        flex-shrink: 0;
+        padding: 1rem;
+        transition: width 0.3s;
+      }
+      .sidebar .nav-link {
+        color: #cbd5e1;
+        margin: 5px 0;
+      }
+      .sidebar .nav-link.active,
+      .sidebar .nav-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+      }
+
+      /* Content */
+      .content {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 2rem;
+      }
+
+      /* Topbar */
+      .topbar {
+        background: #fff;
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #e5e7eb;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      /* Notifications */
+      .notif-item.unread {
+        background-color: #f0f4ff;
+      }
+      .notif-item:hover {
+        background-color: #f5f6fa;
+      }
+
+      /* Responsive sidebar toggle */
+      @media (max-width: 991px) {
+        .sidebar {
+          position: fixed;
+          height: 100%;
+          left: -250px;
+        }
+        .sidebar.open {
+          left: 0;
+        }
+      }
+
+      /* Stat cards */
+      .stat-card {
+        border-left: 4px solid;
+        border-radius: 0.375rem;
+      }
+      .stat-card.primary   { border-color: #0d6efd; }
+      .stat-card.success   { border-color: #198754; }
+      .stat-card.warning   { border-color: #ffc107; }
+      .stat-card.danger    { border-color: #dc3545; }
+
+      /* Profile card */
+      .profile-cover {
+        height: 80px;
+        background: linear-gradient(135deg, #1f2937, #374151);
+        border-radius: 0.375rem 0.375rem 0 0;
+      }
+
+      /* Pricing card highlight */
+      .pricing-highlight {
+        border: 2px solid #0d6efd;
+        transform: scale(1.03);
+      }
+    </style>
+</head>
+
+<body>
+<div class="layout-wrapper">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar">
+        <h4 class="mb-4">MyAdmin</h4>
+        <nav class="nav flex-column">
+            <a class="nav-link" href="index.html"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
+            <a class="nav-link" href="tables.html"><i class="bi bi-table me-2"></i> Tables</a>
+            <a class="nav-link" href="forms.html"><i class="bi bi-ui-checks me-2"></i> Forms</a>
+            <a class="nav-link active" href="cards.html"><i class="bi bi-card-heading me-2"></i> Cards</a>
+            <a class="nav-link" href="tabs.html"><i class="bi bi-folder-symlink me-2"></i> Tabs</a>
+            <a class="nav-link" href="modals.html"><i class="bi bi-layout-modal me-2"></i> Modals</a>
+            <a class="nav-link" href="#"><i class="bi bi-people me-2"></i> Users</a>
+            <a class="nav-link" href="#"><i class="bi bi-gear me-2"></i> Settings</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="content">
+
+        <!-- Topbar -->
+        <div class="topbar d-flex justify-content-between align-items-center">
+            <button class="btn btn-outline-secondary d-lg-none" id="menu-btn">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div class="ms-auto d-flex align-items-center gap-3">
+                <!-- Notification Bell -->
+                <div class="dropdown">
+                    <button class="btn btn-link text-dark p-0 position-relative" id="notif-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-bell fs-5"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="notif-badge">3</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end shadow" style="width: 320px;" aria-labelledby="notif-btn">
+                        <div class="d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
+                            <span class="fw-semibold">Notifications</span>
+                            <button class="btn btn-link btn-sm text-decoration-none p-0" id="mark-all-read">Mark all as read</button>
+                        </div>
+                        <ul class="list-unstyled mb-0" id="notif-list">
+                            <li class="notif-item unread px-3 py-2 border-bottom d-flex gap-2 align-items-start">
+                                <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;">
+                                    <i class="bi bi-person-plus"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="fw-semibold small">New user registered</span>
+                                        <span class="text-muted" style="font-size:0.7rem;">2m ago</span>
+                                    </div>
+                                    <p class="mb-0 text-muted small">Eva Rossi created an account.</p>
+                                </div>
+                            </li>
+                            <li class="notif-item unread px-3 py-2 border-bottom d-flex gap-2 align-items-start">
+                                <div class="rounded-circle bg-warning bg-opacity-10 text-warning d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;">
+                                    <i class="bi bi-exclamation-triangle"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="fw-semibold small">Low stock alert</span>
+                                        <span class="text-muted" style="font-size:0.7rem;">1h ago</span>
+                                    </div>
+                                    <p class="mb-0 text-muted small">USB-C Hub is out of stock.</p>
+                                </div>
+                            </li>
+                            <li class="notif-item unread px-3 py-2 border-bottom d-flex gap-2 align-items-start">
+                                <div class="rounded-circle bg-success bg-opacity-10 text-success d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;">
+                                    <i class="bi bi-bag-check"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="fw-semibold small">Order delivered</span>
+                                        <span class="text-muted" style="font-size:0.7rem;">3h ago</span>
+                                    </div>
+                                    <p class="mb-0 text-muted small">Order #ORD-005 was delivered.</p>
+                                </div>
+                            </li>
+                            <li class="notif-item px-3 py-2 border-bottom d-flex gap-2 align-items-start">
+                                <div class="rounded-circle bg-secondary bg-opacity-10 text-secondary d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;">
+                                    <i class="bi bi-chat-left-text"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="fw-semibold small">New comment</span>
+                                        <span class="text-muted" style="font-size:0.7rem;">Yesterday</span>
+                                    </div>
+                                    <p class="mb-0 text-muted small">Bob left a comment on Report Q1.</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="text-center py-2">
+                            <a href="#" class="btn btn-link btn-sm text-decoration-none">View all notifications</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- User Avatar -->
+                <div class="dropdown">
+                    <button class="btn btn-link p-0 border-0" id="user-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://i.pravatar.cc/40" class="rounded-circle" style="width:36px;height:36px;object-fit:cover;">
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="user-btn">
+                        <li>
+                            <div class="px-3 py-2 border-bottom">
+                                <div class="fw-semibold">Alice Martin</div>
+                                <small class="text-muted">alice@example.com</small>
+                            </div>
+                        </li>
+                        <li><a class="dropdown-item d-flex align-items-center gap-2 mt-1" href="#"><i class="bi bi-person"></i> Profile</a></li>
+                        <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i class="bi bi-gear"></i> Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="#"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <h1 class="mt-4">Cards</h1>
+        <p class="lead">Examples of card layouts and styles.</p>
+
+        <!-- Stat Cards -->
+        <h6 class="text-muted text-uppercase fw-semibold mb-3">Stat Cards</h6>
+        <div class="row g-4 mb-5">
+            <div class="col-sm-6 col-xl-3">
+                <div class="card shadow-sm stat-card primary">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="text-muted small">Total Users</div>
+                            <div class="fs-3 fw-bold">1,250</div>
+                            <div class="text-success small"><i class="bi bi-arrow-up-short"></i> 12% this month</div>
+                        </div>
+                        <div class="text-primary opacity-50"><i class="bi bi-people fs-1"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="card shadow-sm stat-card success">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="text-muted small">Revenue</div>
+                            <div class="fs-3 fw-bold">$9,430</div>
+                            <div class="text-success small"><i class="bi bi-arrow-up-short"></i> 8% this month</div>
+                        </div>
+                        <div class="text-success opacity-50"><i class="bi bi-currency-dollar fs-1"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="card shadow-sm stat-card warning">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="text-muted small">Active Sessions</div>
+                            <div class="fs-3 fw-bold">312</div>
+                            <div class="text-danger small"><i class="bi bi-arrow-down-short"></i> 3% this month</div>
+                        </div>
+                        <div class="text-warning opacity-50"><i class="bi bi-activity fs-1"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="card shadow-sm stat-card danger">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="text-muted small">Open Tickets</div>
+                            <div class="fs-3 fw-bold">47</div>
+                            <div class="text-danger small"><i class="bi bi-arrow-up-short"></i> 5 new today</div>
+                        </div>
+                        <div class="text-danger opacity-50"><i class="bi bi-ticket fs-1"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Basic Cards -->
+        <h6 class="text-muted text-uppercase fw-semibold mb-3">Basic Cards</h6>
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Simple Card</h5>
+                        <p class="card-text text-muted">A plain card with a title and some body text. Useful as a basic content container.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header fw-semibold">Card with Header</div>
+                    <div class="card-body">
+                        <p class="card-text text-muted">This card uses a header section to provide a visible title separate from the body content.</p>
+                    </div>
+                    <div class="card-footer text-muted small">Updated 2 hours ago</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Card with Actions</h5>
+                        <p class="card-text text-muted">Cards can include action buttons to trigger primary or secondary operations.</p>
+                    </div>
+                    <div class="card-footer d-flex gap-2">
+                        <button class="btn btn-primary btn-sm">Confirm</button>
+                        <button class="btn btn-outline-secondary btn-sm">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Cards -->
+        <h6 class="text-muted text-uppercase fw-semibold mb-3">Profile Cards</h6>
+        <div class="row g-4 mb-5">
+            <div class="col-sm-6 col-lg-3">
+                <div class="card shadow-sm text-center h-100">
+                    <div class="profile-cover"></div>
+                    <div class="card-body pt-0">
+                        <img src="https://i.pravatar.cc/80?img=1" class="rounded-circle border border-3 border-white mt-n4 mb-2" style="width:64px;height:64px;object-fit:cover;margin-top:-32px;">
+                        <h6 class="mb-0">Alice Martin</h6>
+                        <small class="text-muted">Admin</small>
+                        <div class="d-flex justify-content-center gap-3 mt-3 text-muted small">
+                            <div><div class="fw-bold text-dark">128</div>Posts</div>
+                            <div><div class="fw-bold text-dark">4.2k</div>Followers</div>
+                            <div><div class="fw-bold text-dark">312</div>Following</div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary btn-sm w-100">Follow</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="card shadow-sm text-center h-100">
+                    <div class="profile-cover"></div>
+                    <div class="card-body pt-0">
+                        <img src="https://i.pravatar.cc/80?img=11" class="rounded-circle border border-3 border-white mt-n4 mb-2" style="width:64px;height:64px;object-fit:cover;margin-top:-32px;">
+                        <h6 class="mb-0">Bob Chen</h6>
+                        <small class="text-muted">Editor</small>
+                        <div class="d-flex justify-content-center gap-3 mt-3 text-muted small">
+                            <div><div class="fw-bold text-dark">54</div>Posts</div>
+                            <div><div class="fw-bold text-dark">1.1k</div>Followers</div>
+                            <div><div class="fw-bold text-dark">89</div>Following</div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline-primary btn-sm w-100">Following</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="card shadow-sm text-center h-100">
+                    <div class="profile-cover"></div>
+                    <div class="card-body pt-0">
+                        <img src="https://i.pravatar.cc/80?img=5" class="rounded-circle border border-3 border-white mt-n4 mb-2" style="width:64px;height:64px;object-fit:cover;margin-top:-32px;">
+                        <h6 class="mb-0">Carol White</h6>
+                        <small class="text-muted">Viewer</small>
+                        <div class="d-flex justify-content-center gap-3 mt-3 text-muted small">
+                            <div><div class="fw-bold text-dark">9</div>Posts</div>
+                            <div><div class="fw-bold text-dark">210</div>Followers</div>
+                            <div><div class="fw-bold text-dark">45</div>Following</div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary btn-sm w-100">Follow</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="card shadow-sm text-center h-100">
+                    <div class="profile-cover"></div>
+                    <div class="card-body pt-0">
+                        <img src="https://i.pravatar.cc/80?img=15" class="rounded-circle border border-3 border-white mt-n4 mb-2" style="width:64px;height:64px;object-fit:cover;margin-top:-32px;">
+                        <h6 class="mb-0">David Kim</h6>
+                        <small class="text-muted">Editor</small>
+                        <div class="d-flex justify-content-center gap-3 mt-3 text-muted small">
+                            <div><div class="fw-bold text-dark">73</div>Posts</div>
+                            <div><div class="fw-bold text-dark">2.8k</div>Followers</div>
+                            <div><div class="fw-bold text-dark">190</div>Following</div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary btn-sm w-100">Follow</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pricing Cards -->
+        <h6 class="text-muted text-uppercase fw-semibold mb-3">Pricing Cards</h6>
+        <div class="row g-4 mb-5 align-items-center">
+            <div class="col-md-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body text-center p-4">
+                        <h5 class="fw-semibold">Starter</h5>
+                        <div class="my-3">
+                            <span class="fs-1 fw-bold">$0</span>
+                            <span class="text-muted">/mo</span>
+                        </div>
+                        <ul class="list-unstyled text-muted mb-4">
+                            <li class="py-1"><i class="bi bi-check-lg text-success me-1"></i> 1 user</li>
+                            <li class="py-1"><i class="bi bi-check-lg text-success me-1"></i> 5 projects</li>
+                            <li class="py-1"><i class="bi bi-check-lg text-success me-1"></i> 2 GB storage</li>
+                            <li class="py-1"><i class="bi bi-x-lg text-danger me-1"></i> Priority support</li>
+                            <li class="py-1"><i class="bi bi-x-lg text-danger me-1"></i> Analytics</li>
+                        </ul>
+                        <button class="btn btn-outline-primary w-100">Get Started</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm pricing-highlight h-100">
+                    <div class="card-body text-center p-4">
+                        <span class="badge bg-primary mb-2">Most Popular</span>
+                        <h5 class="fw-semibold">Pro</h5>
+                        <div class="my-3">
+                            <span class="fs-1 fw-bold">$29</span>
+                            <span class="text-muted">/mo</span>
+                        </div>
+                        <ul class="list-unstyled text-muted mb-4">
+                            <li class="py-1"><i class="bi bi-check-lg text-success me-1"></i> 10 users</li>
+                            <li class="py-1"><i class="bi bi-check-lg text-success me-1"></i> Unlimited projects</li>
+                            <li class="py-1"><i class="bi bi-check-lg text-success me-1"></i> 50 GB storage</li>
+                            <li class="py-1"><i class="bi bi-check-lg text-success me-1"></i> Priority support</li>
+                            <li class="py-1"><i class="bi bi-x-lg text-danger me-1"></i> Analytics</li>
+                        </ul>
+                        <button class="btn btn-primary w-100">Get Started</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body text-center p-4">
+                        <h5 class="fw-semibold">Enterprise</h5>
+                        <div class="my-3">
+                            <span class="fs-1 fw-bold">$99</span>
+                            <span class="text-muted">/mo</span>
+                        </div>
+                        <ul class="list-unstyled text-muted mb-4">
+                            <li class="py-1"><i class="bi bi-check-lg text-success me-1"></i> Unlimited users</li>
+                            <li class="py-1"><i class="bi bi-check-lg text-success me-1"></i> Unlimited projects</li>
+                            <li class="py-1"><i class="bi bi-check-lg text-success me-1"></i> 500 GB storage</li>
+                            <li class="py-1"><i class="bi bi-check-lg text-success me-1"></i> Priority support</li>
+                            <li class="py-1"><i class="bi bi-check-lg text-success me-1"></i> Analytics</li>
+                        </ul>
+                        <button class="btn btn-outline-primary w-100">Contact Sales</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Colored Cards -->
+        <h6 class="text-muted text-uppercase fw-semibold mb-3">Colored Cards</h6>
+        <div class="row g-4 mb-2">
+            <div class="col-sm-6 col-lg-3">
+                <div class="card text-white bg-primary shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-title opacity-75">Primary</h6>
+                        <p class="card-text mb-0">A card styled with the primary theme color.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="card text-white bg-success shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-title opacity-75">Success</h6>
+                        <p class="card-text mb-0">A card styled with the success theme color.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="card text-dark bg-warning shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-title opacity-75">Warning</h6>
+                        <p class="card-text mb-0">A card styled with the warning theme color.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="card text-white bg-danger shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-title opacity-75">Danger</h6>
+                        <p class="card-text mb-0">A card styled with the danger theme color.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /.content -->
+</div><!-- /.layout-wrapper -->
+
+<!-- Bootstrap & JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Mobile sidebar toggle
+  const menuBtn = document.getElementById("menu-btn");
+  const sidebar = document.getElementById("sidebar");
+  menuBtn.addEventListener("click", () => sidebar.classList.toggle("open"));
+
+  // Notifications: mark all as read
+  document.getElementById("mark-all-read").addEventListener("click", (e) => {
+    e.preventDefault();
+    document.querySelectorAll(".notif-item.unread").forEach(el => el.classList.remove("unread"));
+    const badge = document.getElementById("notif-badge");
+    badge.textContent = "0";
+    badge.classList.add("d-none");
+  });
+</script>
+</body>
+</html>

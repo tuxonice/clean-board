@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modals — Admin Template</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        background-color: #f5f6fa;
+      }
+
+      .layout-wrapper {
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .sidebar {
+        width: 250px;
+        background-color: #1f2937;
+        color: #fff;
+        flex-shrink: 0;
+        padding: 1rem;
+        transition: width 0.3s;
+      }
+      .sidebar .nav-link {
+        color: #cbd5e1;
+        margin: 5px 0;
+      }
+      .sidebar .nav-link.active,
+      .sidebar .nav-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+      }
+
+      .content {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 2rem;
+      }
+
+      .topbar {
+        background: #fff;
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #e5e7eb;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .notif-item.unread { background-color: #f0f4ff; }
+      .notif-item:hover  { background-color: #f5f6fa; }
+
+      @media (max-width: 991px) {
+        .sidebar {
+          position: fixed;
+          height: 100%;
+          left: -250px;
+        }
+        .sidebar.open { left: 0; }
+      }
+    </style>
+</head>
+
+<body>
+<div class="layout-wrapper">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar">
+        <h4 class="mb-4">MyAdmin</h4>
+        <nav class="nav flex-column">
+            <a class="nav-link" href="index.html"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
+            <a class="nav-link" href="tables.html"><i class="bi bi-table me-2"></i> Tables</a>
+            <a class="nav-link" href="forms.html"><i class="bi bi-ui-checks me-2"></i> Forms</a>
+            <a class="nav-link" href="cards.html"><i class="bi bi-card-heading me-2"></i> Cards</a>
+            <a class="nav-link" href="tabs.html"><i class="bi bi-folder-symlink me-2"></i> Tabs</a>
+            <a class="nav-link active" href="modals.html"><i class="bi bi-layout-modal me-2"></i> Modals</a>
+            <a class="nav-link" href="#"><i class="bi bi-people me-2"></i> Users</a>
+            <a class="nav-link" href="#"><i class="bi bi-gear me-2"></i> Settings</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="content">
+
+        <!-- Topbar -->
+        <div class="topbar d-flex justify-content-between align-items-center">
+            <button class="btn btn-outline-secondary d-lg-none" id="menu-btn">
+                <i class="bi bi-list"></i>
+            </button>
+            <div class="ms-auto d-flex align-items-center gap-3">
+                <!-- Notification Bell -->
+                <div class="dropdown">
+                    <button class="btn btn-link text-dark p-0 position-relative" id="notif-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-bell fs-5"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="notif-badge">3</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end shadow" style="width:320px;" aria-labelledby="notif-btn">
+                        <div class="d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
+                            <span class="fw-semibold">Notifications</span>
+                            <button class="btn btn-link btn-sm text-decoration-none p-0" id="mark-all-read">Mark all as read</button>
+                        </div>
+                        <ul class="list-unstyled mb-0">
+                            <li class="notif-item unread px-3 py-2 border-bottom d-flex gap-2 align-items-start">
+                                <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;"><i class="bi bi-person-plus"></i></div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between"><span class="fw-semibold small">New user registered</span><span class="text-muted" style="font-size:0.7rem;">2m ago</span></div>
+                                    <p class="mb-0 text-muted small">Eva Rossi created an account.</p>
+                                </div>
+                            </li>
+                            <li class="notif-item unread px-3 py-2 border-bottom d-flex gap-2 align-items-start">
+                                <div class="rounded-circle bg-warning bg-opacity-10 text-warning d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;"><i class="bi bi-exclamation-triangle"></i></div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between"><span class="fw-semibold small">Low stock alert</span><span class="text-muted" style="font-size:0.7rem;">1h ago</span></div>
+                                    <p class="mb-0 text-muted small">USB-C Hub is out of stock.</p>
+                                </div>
+                            </li>
+                            <li class="notif-item unread px-3 py-2 border-bottom d-flex gap-2 align-items-start">
+                                <div class="rounded-circle bg-success bg-opacity-10 text-success d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;"><i class="bi bi-bag-check"></i></div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between"><span class="fw-semibold small">Order delivered</span><span class="text-muted" style="font-size:0.7rem;">3h ago</span></div>
+                                    <p class="mb-0 text-muted small">Order #ORD-005 was delivered.</p>
+                                </div>
+                            </li>
+                            <li class="notif-item px-3 py-2 border-bottom d-flex gap-2 align-items-start">
+                                <div class="rounded-circle bg-secondary bg-opacity-10 text-secondary d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;"><i class="bi bi-chat-left-text"></i></div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between"><span class="fw-semibold small">New comment</span><span class="text-muted" style="font-size:0.7rem;">Yesterday</span></div>
+                                    <p class="mb-0 text-muted small">Bob left a comment on Report Q1.</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="text-center py-2">
+                            <a href="#" class="btn btn-link btn-sm text-decoration-none">View all notifications</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- User Avatar -->
+                <div class="dropdown">
+                    <button class="btn btn-link p-0 border-0" id="user-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://i.pravatar.cc/40" class="rounded-circle" style="width:36px;height:36px;object-fit:cover;">
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="user-btn">
+                        <li>
+                            <div class="px-3 py-2 border-bottom">
+                                <div class="fw-semibold">Alice Martin</div>
+                                <small class="text-muted">alice@example.com</small>
+                            </div>
+                        </li>
+                        <li><a class="dropdown-item d-flex align-items-center gap-2 mt-1" href="#"><i class="bi bi-person"></i> Profile</a></li>
+                        <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i class="bi bi-gear"></i> Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="#"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <h1 class="mt-4">Modals</h1>
+        <p class="lead">Examples of modal dialogs and their variations.</p>
+
+        <!-- Basic Modals -->
+        <h6 class="text-muted text-uppercase fw-semibold mb-3">Basic</h6>
+        <div class="card shadow-sm mb-4">
+            <div class="card-body d-flex flex-wrap gap-2">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-basic">Basic Modal</button>
+                <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal-scrollable">Scrollable Content</button>
+                <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal-centered">Vertically Centered</button>
+                <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal-static">Static Backdrop</button>
+            </div>
+        </div>
+
+        <!-- Sizes -->
+        <h6 class="text-muted text-uppercase fw-semibold mb-3">Sizes</h6>
+        <div class="card shadow-sm mb-4">
+            <div class="card-body d-flex flex-wrap gap-2">
+                <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal-sm">Small</button>
+                <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal-md">Default</button>
+                <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal-lg">Large</button>
+                <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal-xl">Extra Large</button>
+                <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal-fullscreen">Fullscreen</button>
+            </div>
+        </div>
+
+        <!-- Confirmation Modals -->
+        <h6 class="text-muted text-uppercase fw-semibold mb-3">Confirmation Dialogs</h6>
+        <div class="card shadow-sm mb-4">
+            <div class="card-body d-flex flex-wrap gap-2">
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete">Delete</button>
+                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modal-warning">Warning</button>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal-success">Success</button>
+            </div>
+        </div>
+
+        <!-- Form Modal -->
+        <h6 class="text-muted text-uppercase fw-semibold mb-3">Form Modal</h6>
+        <div class="card shadow-sm mb-4">
+            <div class="card-body d-flex flex-wrap gap-2">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-form">New User</button>
+                <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal-image">Image Preview</button>
+            </div>
+        </div>
+
+    </div><!-- /.content -->
+</div><!-- /.layout-wrapper -->
+
+
+<!-- ===================== MODALS ===================== -->
+
+<!-- Basic Modal -->
+<div class="modal fade" id="modal-basic" tabindex="-1" aria-labelledby="modal-basic-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-basic-label">Basic Modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">This is a standard modal dialog. It includes a header, body, and footer. Click the backdrop or the close button to dismiss it.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scrollable Modal -->
+<div class="modal fade" id="modal-scrollable" tabindex="-1" aria-labelledby="modal-scrollable-label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-scrollable-label">Scrollable Content</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>When a modal body has a lot of content it can scroll independently of the page. This prevents the need to scroll the whole page just to read through a long block of text.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vehicula justo vel urna fermentum, in facilisis lorem volutpat. Sed euismod augue nec felis tincidunt, id posuere eros tincidunt.</p>
+                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur sit amet enim malesuada, viverra sapien sit amet, iaculis nunc.</p>
+                <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Proin euismod, arcu vel fringilla luctus, libero lectus tincidunt lorem, a tincidunt urna metus eget arcu.</p>
+                <p>Fusce dictum leo vel urna fermentum, sed lacinia orci vulputate. Phasellus vitae felis in risus efficitur volutpat nec at purus.</p>
+                <p>Donec id ligula vel velit posuere pharetra a ac risus. Integer auctor nisl id lorem convallis, at gravida nibh efficitur. Aliquam erat volutpat.</p>
+                <p>Nam condimentum purus sit amet risus finibus, sed fermentum sapien tincidunt. Nullam convallis elit in dui suscipit venenatis.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Vertically Centered Modal -->
+<div class="modal fade" id="modal-centered" tabindex="-1" aria-labelledby="modal-centered-label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-centered-label">Vertically Centered</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">This modal is vertically centered in the viewport, which works well for short confirmation dialogs or simple messages.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Static Backdrop Modal -->
+<div class="modal fade" id="modal-static" tabindex="-1" aria-labelledby="modal-static-label" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-static-label">Static Backdrop</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">This modal will not close when clicking outside of it. The user must explicitly dismiss it using the button or the close icon. Useful for forms requiring deliberate action.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Got it</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Small Modal -->
+<div class="modal fade" id="modal-sm" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Small Modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">A compact <code>modal-sm</code> dialog. Ideal for brief confirmations or alerts.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Default Size Modal -->
+<div class="modal fade" id="modal-md" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Default Modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">The default modal width (~500px). No size modifier needed.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Large Modal -->
+<div class="modal fade" id="modal-lg" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Large Modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">A <code>modal-lg</code> dialog (~800px wide). Good for data-heavy content like tables or multi-column forms.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Extra Large Modal -->
+<div class="modal fade" id="modal-xl" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Extra Large Modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">A <code>modal-xl</code> dialog (~1140px wide). Useful for dashboards, editors, or full data previews inside a modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Fullscreen Modal -->
+<div class="modal fade" id="modal-fullscreen" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Fullscreen Modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body d-flex align-items-center justify-content-center text-muted">
+                Takes up the entire viewport. Suitable for immersive editors, media viewers, or wizard flows.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Exit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation -->
+<div class="modal fade" id="modal-delete" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-body text-center p-4">
+                <div class="rounded-circle bg-danger bg-opacity-10 text-danger d-inline-flex align-items-center justify-content-center mb-3" style="width:56px;height:56px;">
+                    <i class="bi bi-trash fs-4"></i>
+                </div>
+                <h5 class="fw-semibold">Delete Record?</h5>
+                <p class="text-muted small mb-0">This action is permanent and cannot be undone. Are you sure you want to delete this record?</p>
+            </div>
+            <div class="modal-footer justify-content-center border-0 pt-0">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Yes, Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Warning Confirmation -->
+<div class="modal fade" id="modal-warning" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-body text-center p-4">
+                <div class="rounded-circle bg-warning bg-opacity-10 text-warning d-inline-flex align-items-center justify-content-center mb-3" style="width:56px;height:56px;">
+                    <i class="bi bi-exclamation-triangle fs-4"></i>
+                </div>
+                <h5 class="fw-semibold">Are you sure?</h5>
+                <p class="text-muted small mb-0">This will disable the user's account. They will lose access until re-enabled.</p>
+            </div>
+            <div class="modal-footer justify-content-center border-0 pt-0">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Proceed</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal fade" id="modal-success" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-body text-center p-4">
+                <div class="rounded-circle bg-success bg-opacity-10 text-success d-inline-flex align-items-center justify-content-center mb-3" style="width:56px;height:56px;">
+                    <i class="bi bi-check-lg fs-4"></i>
+                </div>
+                <h5 class="fw-semibold">All Done!</h5>
+                <p class="text-muted small mb-0">Your changes have been saved successfully. The record has been updated.</p>
+            </div>
+            <div class="modal-footer justify-content-center border-0 pt-0">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Great, thanks!</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Form Modal -->
+<div class="modal fade" id="modal-form" tabindex="-1" aria-labelledby="modal-form-label" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-form-label">Add New User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="modal-user-form" novalidate>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <label class="form-label" for="mf-first">First Name</label>
+                            <input type="text" id="mf-first" class="form-control" placeholder="Alice" required>
+                            <div class="invalid-feedback">Required.</div>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label" for="mf-last">Last Name</label>
+                            <input type="text" id="mf-last" class="form-control" placeholder="Martin" required>
+                            <div class="invalid-feedback">Required.</div>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" for="mf-email">Email</label>
+                            <input type="email" id="mf-email" class="form-control" placeholder="alice@example.com" required>
+                            <div class="invalid-feedback">Enter a valid email.</div>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" for="mf-role">Role</label>
+                            <select id="mf-role" class="form-select" required>
+                                <option value="" disabled selected>Select a role…</option>
+                                <option>Admin</option>
+                                <option>Editor</option>
+                                <option>Viewer</option>
+                            </select>
+                            <div class="invalid-feedback">Please select a role.</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="modal-form-submit">Add User</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Image Preview Modal -->
+<div class="modal fade" id="modal-image" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-transparent border-0">
+            <div class="modal-header border-0 pb-0">
+                <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-0 text-center">
+                <img src="https://picsum.photos/800/500?grayscale" class="img-fluid rounded shadow" alt="Preview">
+            </div>
+            <div class="modal-footer border-0 justify-content-center">
+                <span class="text-white small opacity-75">Sample image — picsum.photos</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Bootstrap & JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Mobile sidebar toggle
+  const menuBtn = document.getElementById("menu-btn");
+  const sidebar = document.getElementById("sidebar");
+  menuBtn.addEventListener("click", () => sidebar.classList.toggle("open"));
+
+  // Notifications: mark all as read
+  document.getElementById("mark-all-read").addEventListener("click", (e) => {
+    e.preventDefault();
+    document.querySelectorAll(".notif-item.unread").forEach(el => el.classList.remove("unread"));
+    const badge = document.getElementById("notif-badge");
+    badge.textContent = "0";
+    badge.classList.add("d-none");
+  });
+
+  // Form modal validation
+  document.getElementById("modal-form-submit").addEventListener("click", () => {
+    const form = document.getElementById("modal-user-form");
+    form.classList.add("was-validated");
+    if (form.checkValidity()) {
+      form.classList.remove("was-validated");
+      form.reset();
+      bootstrap.Modal.getInstance(document.getElementById("modal-form")).hide();
+    }
+  });
+
+  // Reset form validation state when modal is closed
+  document.getElementById("modal-form").addEventListener("hidden.bs.modal", () => {
+    const form = document.getElementById("modal-user-form");
+    form.classList.remove("was-validated");
+    form.reset();
+  });
+</script>
+</body>
+</html>

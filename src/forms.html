@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forms — Admin Template</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        background-color: #f5f6fa;
+      }
+
+      /* Layout */
+      .layout-wrapper {
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        width: 250px;
+        background-color: #1f2937;
+        color: #fff;
+        flex-shrink: 0;
+        padding: 1rem;
+        transition: width 0.3s;
+      }
+      .sidebar .nav-link {
+        color: #cbd5e1;
+        margin: 5px 0;
+      }
+      .sidebar .nav-link.active,
+      .sidebar .nav-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+      }
+
+      /* Content */
+      .content {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 2rem;
+      }
+
+      /* Topbar */
+      .topbar {
+        background: #fff;
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #e5e7eb;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      /* Notifications */
+      .notif-item.unread {
+        background-color: #f0f4ff;
+      }
+      .notif-item:hover {
+        background-color: #f5f6fa;
+      }
+
+      /* Responsive sidebar toggle */
+      @media (max-width: 991px) {
+        .sidebar {
+          position: fixed;
+          height: 100%;
+          left: -250px;
+        }
+        .sidebar.open {
+          left: 0;
+        }
+      }
+    </style>
+</head>
+
+<body>
+<div class="layout-wrapper">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar">
+        <h4 class="mb-4">MyAdmin</h4>
+        <nav class="nav flex-column">
+            <a class="nav-link" href="index.html"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
+            <a class="nav-link" href="tables.html"><i class="bi bi-table me-2"></i> Tables</a>
+            <a class="nav-link active" href="forms.html"><i class="bi bi-ui-checks me-2"></i> Forms</a>
+            <a class="nav-link" href="cards.html"><i class="bi bi-card-heading me-2"></i> Cards</a>
+            <a class="nav-link" href="tabs.html"><i class="bi bi-folder-symlink me-2"></i> Tabs</a>
+            <a class="nav-link" href="modals.html"><i class="bi bi-layout-modal me-2"></i> Modals</a>
+            <a class="nav-link" href="#"><i class="bi bi-people me-2"></i> Users</a>
+            <a class="nav-link" href="#"><i class="bi bi-gear me-2"></i> Settings</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="content">
+
+        <!-- Topbar -->
+        <div class="topbar d-flex justify-content-between align-items-center">
+            <button class="btn btn-outline-secondary d-lg-none" id="menu-btn">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div class="ms-auto d-flex align-items-center gap-3">
+                <!-- Notification Bell -->
+                <div class="dropdown">
+                    <button class="btn btn-link text-dark p-0 position-relative" id="notif-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-bell fs-5"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="notif-badge">3</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end shadow" style="width: 320px;" aria-labelledby="notif-btn">
+                        <div class="d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
+                            <span class="fw-semibold">Notifications</span>
+                            <button class="btn btn-link btn-sm text-decoration-none p-0" id="mark-all-read">Mark all as read</button>
+                        </div>
+                        <ul class="list-unstyled mb-0" id="notif-list">
+                            <li class="notif-item unread px-3 py-2 border-bottom d-flex gap-2 align-items-start">
+                                <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;">
+                                    <i class="bi bi-person-plus"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="fw-semibold small">New user registered</span>
+                                        <span class="text-muted" style="font-size:0.7rem;">2m ago</span>
+                                    </div>
+                                    <p class="mb-0 text-muted small">Eva Rossi created an account.</p>
+                                </div>
+                            </li>
+                            <li class="notif-item unread px-3 py-2 border-bottom d-flex gap-2 align-items-start">
+                                <div class="rounded-circle bg-warning bg-opacity-10 text-warning d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;">
+                                    <i class="bi bi-exclamation-triangle"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="fw-semibold small">Low stock alert</span>
+                                        <span class="text-muted" style="font-size:0.7rem;">1h ago</span>
+                                    </div>
+                                    <p class="mb-0 text-muted small">USB-C Hub is out of stock.</p>
+                                </div>
+                            </li>
+                            <li class="notif-item unread px-3 py-2 border-bottom d-flex gap-2 align-items-start">
+                                <div class="rounded-circle bg-success bg-opacity-10 text-success d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;">
+                                    <i class="bi bi-bag-check"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="fw-semibold small">Order delivered</span>
+                                        <span class="text-muted" style="font-size:0.7rem;">3h ago</span>
+                                    </div>
+                                    <p class="mb-0 text-muted small">Order #ORD-005 was delivered.</p>
+                                </div>
+                            </li>
+                            <li class="notif-item px-3 py-2 border-bottom d-flex gap-2 align-items-start">
+                                <div class="rounded-circle bg-secondary bg-opacity-10 text-secondary d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;">
+                                    <i class="bi bi-chat-left-text"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="fw-semibold small">New comment</span>
+                                        <span class="text-muted" style="font-size:0.7rem;">Yesterday</span>
+                                    </div>
+                                    <p class="mb-0 text-muted small">Bob left a comment on Report Q1.</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="text-center py-2">
+                            <a href="#" class="btn btn-link btn-sm text-decoration-none">View all notifications</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- User Avatar -->
+                <div class="dropdown">
+                    <button class="btn btn-link p-0 border-0" id="user-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://i.pravatar.cc/40" class="rounded-circle" style="width:36px;height:36px;object-fit:cover;">
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="user-btn">
+                        <li>
+                            <div class="px-3 py-2 border-bottom">
+                                <div class="fw-semibold">Alice Martin</div>
+                                <small class="text-muted">alice@example.com</small>
+                            </div>
+                        </li>
+                        <li><a class="dropdown-item d-flex align-items-center gap-2 mt-1" href="#"><i class="bi bi-person"></i> Profile</a></li>
+                        <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i class="bi bi-gear"></i> Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="#"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <h1 class="mt-4">Forms</h1>
+        <p class="lead">Examples of form layouts and input types.</p>
+
+        <!-- General Form -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header fw-semibold">General Form</div>
+            <div class="card-body">
+                <form novalidate id="general-form">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label" for="first-name">First Name</label>
+                            <input type="text" id="first-name" class="form-control" placeholder="Alice" required>
+                            <div class="invalid-feedback">First name is required.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="last-name">Last Name</label>
+                            <input type="text" id="last-name" class="form-control" placeholder="Martin" required>
+                            <div class="invalid-feedback">Last name is required.</div>
+                        </div>
+                        <div class="col-md-8">
+                            <label class="form-label" for="email">Email</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                <input type="email" id="email" class="form-control" placeholder="alice@example.com" required>
+                                <div class="invalid-feedback">Enter a valid email address.</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label" for="phone">Phone</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                                <input type="tel" id="phone" class="form-control" placeholder="+1 555 000 0000">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="role">Role</label>
+                            <select id="role" class="form-select" required>
+                                <option value="" disabled selected>Select a role…</option>
+                                <option>Admin</option>
+                                <option>Editor</option>
+                                <option>Viewer</option>
+                            </select>
+                            <div class="invalid-feedback">Please select a role.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="dob">Date of Birth</label>
+                            <input type="date" id="dob" class="form-control">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" for="bio">Bio</label>
+                            <textarea id="bio" class="form-control" rows="3" placeholder="Short description…"></textarea>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="terms" required>
+                                <label class="form-check-label" for="terms">I agree to the terms and conditions</label>
+                                <div class="invalid-feedback">You must agree before submitting.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3 d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="reset" class="btn btn-outline-secondary">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Input Types -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header fw-semibold">Input Types</div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label">Text</label>
+                        <input type="text" class="form-control" placeholder="Plain text">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Password</label>
+                        <div class="input-group">
+                            <input type="password" id="pwd-input" class="form-control" placeholder="Password">
+                            <button class="btn btn-outline-secondary" type="button" id="pwd-toggle">
+                                <i class="bi bi-eye" id="pwd-icon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Number</label>
+                        <input type="number" class="form-control" placeholder="0" min="0">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">URL</label>
+                        <input type="url" class="form-control" placeholder="https://example.com">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Search</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-search"></i></span>
+                            <input type="search" class="form-control" placeholder="Search…">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Color</label>
+                        <input type="color" class="form-control form-control-color w-100" value="#1f2937">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Range <span id="range-val" class="text-muted fw-normal">50</span></label>
+                        <input type="range" class="form-range" id="range-input" min="0" max="100" value="50">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">File Upload</label>
+                        <input type="file" class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Disabled</label>
+                        <input type="text" class="form-control" value="Not editable" disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Valid state</label>
+                        <input type="text" class="form-control is-valid" value="Looks good!">
+                        <div class="valid-feedback">This value is correct.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Invalid state</label>
+                        <input type="text" class="form-control is-invalid" value="Wrong value">
+                        <div class="invalid-feedback">This field has an error.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checks, Radios & Switches -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header fw-semibold">Checks, Radios &amp; Switches</div>
+            <div class="card-body">
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <p class="fw-semibold mb-2">Checkboxes</p>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="chk1" checked>
+                            <label class="form-check-label" for="chk1">Option A</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="chk2">
+                            <label class="form-check-label" for="chk2">Option B</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="chk3" disabled>
+                            <label class="form-check-label" for="chk3">Disabled</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="fw-semibold mb-2">Radios</p>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="radio-group" id="rad1" checked>
+                            <label class="form-check-label" for="rad1">Option 1</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="radio-group" id="rad2">
+                            <label class="form-check-label" for="rad2">Option 2</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="radio-group" id="rad3" disabled>
+                            <label class="form-check-label" for="rad3">Disabled</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="fw-semibold mb-2">Switches</p>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="sw1" checked>
+                            <label class="form-check-label" for="sw1">Enabled</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="sw2">
+                            <label class="form-check-label" for="sw2">Off</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="sw3" disabled>
+                            <label class="form-check-label" for="sw3">Disabled</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inline & Floating Labels -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header fw-semibold">Floating Labels</div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="fl-name" placeholder="Full Name">
+                            <label for="fl-name">Full Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating">
+                            <input type="email" class="form-control" id="fl-email" placeholder="Email">
+                            <label for="fl-email">Email address</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating">
+                            <select class="form-select" id="fl-select">
+                                <option value="" disabled selected></option>
+                                <option>Design</option>
+                                <option>Engineering</option>
+                                <option>Marketing</option>
+                            </select>
+                            <label for="fl-select">Department</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <textarea class="form-control" id="fl-notes" placeholder="Notes" style="height: 90px"></textarea>
+                            <label for="fl-notes">Notes</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /.content -->
+</div><!-- /.layout-wrapper -->
+
+<!-- Bootstrap & JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Mobile sidebar toggle
+  const menuBtn = document.getElementById("menu-btn");
+  const sidebar = document.getElementById("sidebar");
+  menuBtn.addEventListener("click", () => sidebar.classList.toggle("open"));
+
+  // Notifications: mark all as read
+  document.getElementById("mark-all-read").addEventListener("click", (e) => {
+    e.preventDefault();
+    document.querySelectorAll(".notif-item.unread").forEach(el => el.classList.remove("unread"));
+    const badge = document.getElementById("notif-badge");
+    badge.textContent = "0";
+    badge.classList.add("d-none");
+  });
+
+  // Range value display
+  const rangeInput = document.getElementById("range-input");
+  const rangeVal = document.getElementById("range-val");
+  rangeInput.addEventListener("input", () => rangeVal.textContent = rangeInput.value);
+
+  // Password visibility toggle
+  document.getElementById("pwd-toggle").addEventListener("click", () => {
+    const input = document.getElementById("pwd-input");
+    const icon = document.getElementById("pwd-icon");
+    const isPassword = input.type === "password";
+    input.type = isPassword ? "text" : "password";
+    icon.className = isPassword ? "bi bi-eye-slash" : "bi bi-eye";
+  });
+
+  // Bootstrap validation on general form
+  document.getElementById("general-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    e.currentTarget.classList.add("was-validated");
+    if (e.currentTarget.checkValidity()) {
+      e.currentTarget.classList.remove("was-validated");
+      e.currentTarget.reset();
+    }
+  });
+</script>
+</body>
+</html>
