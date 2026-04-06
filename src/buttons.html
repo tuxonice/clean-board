@@ -3,15 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard — CleanBoard</title>
+    <title>Buttons — CleanBoard</title>
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Shared styles -->
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -23,7 +21,7 @@
     <aside id="sidebar" class="sidebar">
         <h4 class="mb-4">CleanBoard</h4>
         <nav class="nav flex-column" aria-label="Sidebar navigation">
-            <a class="nav-link active" href="index.html"><i aria-hidden="true" class="bi bi-speedometer2 me-2"></i> Dashboard</a>
+            <a class="nav-link" href="index.html"><i aria-hidden="true" class="bi bi-speedometer2 me-2"></i> Dashboard</a>
             <a class="nav-link" href="tables.html"><i aria-hidden="true" class="bi bi-table me-2"></i> Tables</a>
             <a class="nav-link d-flex justify-content-between align-items-center" href="#forms-submenu" data-bs-toggle="collapse" aria-expanded="false" aria-controls="forms-submenu">
                 <span><i aria-hidden="true" class="bi bi-ui-checks me-2"></i> Forms</span>
@@ -36,7 +34,7 @@
                     <a class="nav-link py-1" href="forms.html#floating-labels"><i aria-hidden="true" class="bi bi-textarea me-2"></i> Floating Labels</a>
                 </nav>
             </div>
-            <a class="nav-link" href="buttons.html"><i aria-hidden="true" class="bi bi-toggles me-2"></i> Buttons</a>
+            <a class="nav-link active" href="buttons.html"><i aria-hidden="true" class="bi bi-toggles me-2"></i> Buttons</a>
             <a class="nav-link" href="alerts.html"><i aria-hidden="true" class="bi bi-bell me-2"></i> Alerts</a>
             <a class="nav-link" href="icons.html"><i aria-hidden="true" class="bi bi-grid me-2"></i> Icons</a>
             <a class="nav-link" href="cards.html"><i aria-hidden="true" class="bi bi-card-heading me-2"></i> Cards</a>
@@ -82,48 +80,48 @@
                         <ul class="list-unstyled mb-0" id="notif-list">
                             <li class="notif-item unread px-3 py-2 border-bottom d-flex gap-2 align-items-start">
                                 <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;">
-                                    <i aria-hidden="true" class="bi bi-person-plus"></i>
+                                    <i class="bi bi-person-plus"></i>
                                 </div>
                                 <div class="flex-grow-1">
                                     <div class="d-flex justify-content-between">
                                         <span class="fw-semibold small">New user registered</span>
-                                        <span class="text-muted" style="font-size:0.75rem;">2m ago</span>
+                                        <span class="text-muted" style="font-size:0.7rem;">2m ago</span>
                                     </div>
                                     <p class="mb-0 text-muted small">Eva Rossi created an account.</p>
                                 </div>
                             </li>
                             <li class="notif-item unread px-3 py-2 border-bottom d-flex gap-2 align-items-start">
                                 <div class="rounded-circle bg-warning bg-opacity-10 text-warning d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;">
-                                    <i aria-hidden="true" class="bi bi-exclamation-triangle"></i>
+                                    <i class="bi bi-exclamation-triangle"></i>
                                 </div>
                                 <div class="flex-grow-1">
                                     <div class="d-flex justify-content-between">
                                         <span class="fw-semibold small">Low stock alert</span>
-                                        <span class="text-muted" style="font-size:0.75rem;">1h ago</span>
+                                        <span class="text-muted" style="font-size:0.7rem;">1h ago</span>
                                     </div>
                                     <p class="mb-0 text-muted small">USB-C Hub is out of stock.</p>
                                 </div>
                             </li>
                             <li class="notif-item unread px-3 py-2 border-bottom d-flex gap-2 align-items-start">
                                 <div class="rounded-circle bg-success bg-opacity-10 text-success d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;">
-                                    <i aria-hidden="true" class="bi bi-bag-check"></i>
+                                    <i class="bi bi-bag-check"></i>
                                 </div>
                                 <div class="flex-grow-1">
                                     <div class="d-flex justify-content-between">
                                         <span class="fw-semibold small">Order delivered</span>
-                                        <span class="text-muted" style="font-size:0.75rem;">3h ago</span>
+                                        <span class="text-muted" style="font-size:0.7rem;">3h ago</span>
                                     </div>
                                     <p class="mb-0 text-muted small">Order #ORD-005 was delivered.</p>
                                 </div>
                             </li>
                             <li class="notif-item px-3 py-2 border-bottom d-flex gap-2 align-items-start">
                                 <div class="rounded-circle bg-secondary bg-opacity-10 text-secondary d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;">
-                                    <i aria-hidden="true" class="bi bi-chat-left-text"></i>
+                                    <i class="bi bi-chat-left-text"></i>
                                 </div>
                                 <div class="flex-grow-1">
                                     <div class="d-flex justify-content-between">
                                         <span class="fw-semibold small">New comment</span>
-                                        <span class="text-muted" style="font-size:0.75rem;">Yesterday</span>
+                                        <span class="text-muted" style="font-size:0.7rem;">Yesterday</span>
                                     </div>
                                     <p class="mb-0 text-muted small">Bob left a comment on Report Q1.</p>
                                 </div>
@@ -156,35 +154,161 @@
         </div>
 
         <!-- Page Content -->
-        <h1 class="mt-4">Welcome to the Admin Dashboard</h1>
-        <p class="lead">This is your starter template. Customize it as needed!</p>
+        <h1 class="mt-4 mb-1">Buttons</h1>
+        <p class="text-muted mb-4">A reference of all button styles, sizes, and states available in the template.</p>
 
-        <!-- Example widget -->
-        <div class="row g-4 mt-4">
-            <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h5>Total Users</h5>
-                        <h2>1,250</h2>
-                    </div>
+        <!-- Solid Variants -->
+        <h6 class="text-muted text-uppercase fw-semibold mb-3">Solid</h6>
+        <div class="card shadow-sm mb-4">
+            <div class="card-body d-flex flex-wrap gap-2">
+                <button class="btn btn-primary">Primary</button>
+                <button class="btn btn-secondary">Secondary</button>
+                <button class="btn btn-success">Success</button>
+                <button class="btn btn-danger">Danger</button>
+                <button class="btn btn-warning">Warning</button>
+                <button class="btn btn-info">Info</button>
+                <button class="btn btn-light">Light</button>
+                <button class="btn btn-dark">Dark</button>
+                <button class="btn btn-link">Link</button>
+            </div>
+        </div>
+
+        <!-- Outline Variants -->
+        <h6 class="text-muted text-uppercase fw-semibold mb-3">Outline</h6>
+        <div class="card shadow-sm mb-4">
+            <div class="card-body d-flex flex-wrap gap-2">
+                <button class="btn btn-outline-primary">Primary</button>
+                <button class="btn btn-outline-secondary">Secondary</button>
+                <button class="btn btn-outline-success">Success</button>
+                <button class="btn btn-outline-danger">Danger</button>
+                <button class="btn btn-outline-warning">Warning</button>
+                <button class="btn btn-outline-info">Info</button>
+                <button class="btn btn-outline-light">Light</button>
+                <button class="btn btn-outline-dark">Dark</button>
+            </div>
+        </div>
+
+        <!-- Sizes -->
+        <h6 class="text-muted text-uppercase fw-semibold mb-3">Sizes</h6>
+        <div class="card shadow-sm mb-4">
+            <div class="card-body d-flex flex-wrap align-items-center gap-2">
+                <button class="btn btn-primary btn-lg">Large</button>
+                <button class="btn btn-primary">Default</button>
+                <button class="btn btn-primary btn-sm">Small</button>
+            </div>
+        </div>
+
+        <!-- Icon Buttons -->
+        <h6 class="text-muted text-uppercase fw-semibold mb-3">With Icons</h6>
+        <div class="card shadow-sm mb-4">
+            <div class="card-body d-flex flex-wrap gap-2">
+                <button class="btn btn-primary"><i aria-hidden="true" class="bi bi-plus-lg me-1"></i> Add New</button>
+                <button class="btn btn-success"><i aria-hidden="true" class="bi bi-check-lg me-1"></i> Confirm</button>
+                <button class="btn btn-danger"><i aria-hidden="true" class="bi bi-trash me-1"></i> Delete</button>
+                <button class="btn btn-outline-secondary"><i aria-hidden="true" class="bi bi-pencil me-1"></i> Edit</button>
+                <button class="btn btn-outline-secondary"><i aria-hidden="true" class="bi bi-download me-1"></i> Export</button>
+                <button class="btn btn-outline-primary"><i aria-hidden="true" class="bi bi-upload me-1"></i> Import</button>
+            </div>
+        </div>
+
+        <!-- Icon-only Buttons -->
+        <h6 class="text-muted text-uppercase fw-semibold mb-3">Icon Only</h6>
+        <div class="card shadow-sm mb-4">
+            <div class="card-body d-flex flex-wrap gap-2">
+                <button class="btn btn-primary" aria-label="Add"><i aria-hidden="true" class="bi bi-plus-lg"></i></button>
+                <button class="btn btn-outline-secondary" aria-label="Edit"><i aria-hidden="true" class="bi bi-pencil"></i></button>
+                <button class="btn btn-outline-danger" aria-label="Delete"><i aria-hidden="true" class="bi bi-trash"></i></button>
+                <button class="btn btn-outline-secondary" aria-label="Search"><i aria-hidden="true" class="bi bi-search"></i></button>
+                <button class="btn btn-outline-secondary" aria-label="Filter"><i aria-hidden="true" class="bi bi-funnel"></i></button>
+                <button class="btn btn-outline-secondary" aria-label="Refresh"><i aria-hidden="true" class="bi bi-arrow-clockwise"></i></button>
+                <button class="btn btn-outline-secondary" aria-label="Settings"><i aria-hidden="true" class="bi bi-gear"></i></button>
+            </div>
+        </div>
+
+        <!-- States -->
+        <h6 class="text-muted text-uppercase fw-semibold mb-3">States</h6>
+        <div class="card shadow-sm mb-4">
+            <div class="card-body d-flex flex-wrap gap-2">
+                <button class="btn btn-primary">Normal</button>
+                <button class="btn btn-primary active">Active</button>
+                <button class="btn btn-primary" disabled>Disabled</button>
+                <button class="btn btn-primary" disabled>
+                    <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                    Loading…
+                </button>
+                <button class="btn btn-outline-secondary" disabled>Disabled Outline</button>
+            </div>
+        </div>
+
+        <!-- Button Groups -->
+        <h6 class="text-muted text-uppercase fw-semibold mb-3">Button Groups</h6>
+        <div class="card shadow-sm mb-4">
+            <div class="card-body d-flex flex-wrap align-items-start gap-3">
+                <div class="btn-group" role="group">
+                    <button class="btn btn-outline-secondary">Left</button>
+                    <button class="btn btn-outline-secondary">Center</button>
+                    <button class="btn btn-outline-secondary">Right</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button class="btn btn-primary">Save</button>
+                    <button class="btn btn-outline-primary">Save &amp; Close</button>
+                </div>
+                <div class="btn-group-vertical" role="group">
+                    <button class="btn btn-outline-secondary btn-sm">Top</button>
+                    <button class="btn btn-outline-secondary btn-sm">Middle</button>
+                    <button class="btn btn-outline-secondary btn-sm">Bottom</button>
                 </div>
             </div>
+        </div>
 
-            <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h5>Revenue</h5>
-                        <h2>$9,430</h2>
-                    </div>
+        <!-- Dropdown Buttons -->
+        <h6 class="text-muted text-uppercase fw-semibold mb-3">Dropdown &amp; Split</h6>
+        <div class="card shadow-sm mb-4">
+            <div class="card-body d-flex flex-wrap gap-3">
+                <!-- Dropdown button -->
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                        Actions
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>Edit</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-files me-2"></i>Duplicate</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
+                    </ul>
+                </div>
+                <!-- Split button -->
+                <div class="btn-group">
+                    <button class="btn btn-outline-secondary">Export</button>
+                    <button class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="visually-hidden">Toggle dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Export as CSV</a></li>
+                        <li><a class="dropdown-item" href="#">Export as PDF</a></li>
+                        <li><a class="dropdown-item" href="#">Export as Excel</a></li>
+                    </ul>
                 </div>
             </div>
+        </div>
 
-            <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h5>Active Sessions</h5>
-                        <h2>312</h2>
-                    </div>
+        <!-- Toggle / Checkbox Buttons -->
+        <h6 class="text-muted text-uppercase fw-semibold mb-3">Toggle</h6>
+        <div class="card shadow-sm mb-4">
+            <div class="card-body d-flex flex-wrap gap-3">
+                <div class="btn-group" role="group">
+                    <input type="checkbox" class="btn-check" id="toggle-1" autocomplete="off" checked>
+                    <label class="btn btn-outline-primary" for="toggle-1">Monthly</label>
+                    <input type="checkbox" class="btn-check" id="toggle-2" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="toggle-2">Quarterly</label>
+                    <input type="checkbox" class="btn-check" id="toggle-3" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="toggle-3">Yearly</label>
+                </div>
+                <div class="btn-group" role="group">
+                    <input type="radio" class="btn-check" name="view-toggle" id="view-list" autocomplete="off" checked>
+                    <label class="btn btn-outline-secondary" for="view-list"><i class="bi bi-list-ul"></i></label>
+                    <input type="radio" class="btn-check" name="view-toggle" id="view-grid" autocomplete="off">
+                    <label class="btn btn-outline-secondary" for="view-grid"><i class="bi bi-grid"></i></label>
                 </div>
             </div>
         </div>
@@ -201,8 +325,8 @@
             </div>
         </footer>
 
-    </main>
-</div>
+    </main><!-- /.content -->
+</div><!-- /.layout-wrapper -->
 
 <!-- Bootstrap & JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
