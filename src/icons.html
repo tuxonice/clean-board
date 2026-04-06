@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Icons — Admin Template</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        background-color: #f5f6fa;
+      }
+
+      /* Layout */
+      .layout-wrapper {
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        width: 250px;
+        background-color: #1f2937;
+        color: #fff;
+        flex-shrink: 0;
+        padding: 1rem;
+        transition: width 0.3s;
+      }
+      .sidebar .nav-link {
+        color: #cbd5e1;
+        margin: 5px 0;
+      }
+      .sidebar .nav-link.active,
+      .sidebar .nav-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+      }
+
+      /* Content */
+      .content {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 2rem;
+      }
+
+      /* Topbar */
+      .topbar {
+        background: #fff;
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #e5e7eb;
+        margin: -2rem -2rem 0 -2rem;
+      }
+
+      /* Notifications */
+      .notif-item.unread { background-color: #f0f4ff; }
+      .notif-item:hover  { background-color: #f5f6fa; }
+
+      /* Responsive sidebar toggle */
+      @media (max-width: 991px) {
+        .sidebar {
+          position: fixed;
+          height: 100%;
+          left: -250px;
+          z-index: 200;
+        }
+        .sidebar.open { left: 0; }
+        .sidebar-backdrop {
+          display: none;
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.4);
+          z-index: 199;
+        }
+        .sidebar-backdrop.show { display: block; }
+      }
+
+      /* Icon grid */
+      .icon-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 0.5rem;
+      }
+
+      .icon-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+        padding: 0.75rem 0.5rem;
+        border-radius: 0.375rem;
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        cursor: pointer;
+        transition: background 0.15s, border-color 0.15s, transform 0.1s;
+        text-align: center;
+        user-select: none;
+      }
+      .icon-item:hover {
+        background: #f0f4ff;
+        border-color: #0d6efd;
+      }
+      .icon-item.copied {
+        background: #d1fae5;
+        border-color: #198754;
+      }
+      .icon-item i {
+        font-size: 1.4rem;
+        color: #374151;
+      }
+      .icon-item span {
+        font-size: 0.65rem;
+        color: #6b7280;
+        word-break: break-all;
+        line-height: 1.2;
+      }
+
+      .section-hidden { display: none; }
+    </style>
+</head>
+
+<body>
+<div class="layout-wrapper">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar">
+        <h4 class="mb-4">CleanBoard</h4>
+        <nav class="nav flex-column">
+            <a class="nav-link" href="index.html"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
+            <a class="nav-link" href="tables.html"><i class="bi bi-table me-2"></i> Tables</a>
+            <a class="nav-link d-flex justify-content-between align-items-center" href="#forms-submenu" data-bs-toggle="collapse" aria-expanded="false" aria-controls="forms-submenu">
+                <span><i class="bi bi-ui-checks me-2"></i> Forms</span>
+                <i class="bi bi-chevron-down submenu-arrow" style="font-size:0.75rem;transition:transform 0.2s;"></i>
+            </a>
+            <div class="collapse" id="forms-submenu">
+                <nav class="nav flex-column ms-3 border-start border-secondary ps-2 mt-1 mb-1">
+                    <a class="nav-link py-1" href="forms.html"><i class="bi bi-input-cursor me-2"></i> Basic Inputs</a>
+                    <a class="nav-link py-1" href="forms.html#checks-radios"><i class="bi bi-check2-square me-2"></i> Checks &amp; Radios</a>
+                    <a class="nav-link py-1" href="forms.html#floating-labels"><i class="bi bi-textarea me-2"></i> Floating Labels</a>
+                </nav>
+            </div>
+            <a class="nav-link" href="buttons.html"><i class="bi bi-toggles me-2"></i> Buttons</a>
+            <a class="nav-link" href="alerts.html"><i class="bi bi-bell me-2"></i> Alerts</a>
+            <a class="nav-link active" href="icons.html"><i class="bi bi-grid me-2"></i> Icons</a>
+            <a class="nav-link" href="cards.html"><i class="bi bi-card-heading me-2"></i> Cards</a>
+            <a class="nav-link" href="tabs.html"><i class="bi bi-folder-symlink me-2"></i> Tabs</a>
+            <a class="nav-link" href="modals.html"><i class="bi bi-layout-wtf me-2"></i> Modals</a>
+            <a class="nav-link" href="#"><i class="bi bi-people me-2"></i> Users</a>
+            <a class="nav-link" href="#"><i class="bi bi-gear me-2"></i> Settings</a>
+            <hr class="border-secondary my-2">
+            <a class="nav-link" href="login.html"><i class="bi bi-box-arrow-in-right me-2"></i> Login</a>
+            <a class="nav-link" href="signup.html"><i class="bi bi-person-plus me-2"></i> Sign Up</a>
+            <a class="nav-link" href="404.html"><i class="bi bi-question-circle me-2"></i> 404</a>
+        </nav>
+    </aside>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+    <!-- Main Content -->
+    <div class="content">
+
+        <!-- Topbar -->
+        <div class="topbar d-flex justify-content-between align-items-center">
+            <button class="btn btn-outline-secondary d-lg-none" id="menu-btn">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div class="input-group" style="max-width: 280px;">
+                <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-search"></i></span>
+                <input type="search" class="form-control border-start-0 ps-0" placeholder="Search…" aria-label="Search">
+            </div>
+
+            <div class="ms-auto d-flex align-items-center gap-3">
+                <!-- Notification Bell -->
+                <div class="dropdown">
+                    <button class="btn btn-link text-dark p-0 position-relative" id="notif-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-bell fs-5"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="notif-badge">3</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end shadow" style="width: 320px;" aria-labelledby="notif-btn">
+                        <div class="d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
+                            <span class="fw-semibold">Notifications</span>
+                            <button class="btn btn-link btn-sm text-decoration-none p-0" id="mark-all-read">Mark all as read</button>
+                        </div>
+                        <ul class="list-unstyled mb-0" id="notif-list">
+                            <li class="notif-item unread px-3 py-2 border-bottom d-flex gap-2 align-items-start">
+                                <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;">
+                                    <i class="bi bi-person-plus"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="fw-semibold small">New user registered</span>
+                                        <span class="text-muted" style="font-size:0.7rem;">2m ago</span>
+                                    </div>
+                                    <p class="mb-0 text-muted small">Eva Rossi created an account.</p>
+                                </div>
+                            </li>
+                            <li class="notif-item unread px-3 py-2 border-bottom d-flex gap-2 align-items-start">
+                                <div class="rounded-circle bg-warning bg-opacity-10 text-warning d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;">
+                                    <i class="bi bi-exclamation-triangle"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="fw-semibold small">Low stock alert</span>
+                                        <span class="text-muted" style="font-size:0.7rem;">1h ago</span>
+                                    </div>
+                                    <p class="mb-0 text-muted small">USB-C Hub is out of stock.</p>
+                                </div>
+                            </li>
+                            <li class="notif-item unread px-3 py-2 border-bottom d-flex gap-2 align-items-start">
+                                <div class="rounded-circle bg-success bg-opacity-10 text-success d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;">
+                                    <i class="bi bi-bag-check"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="fw-semibold small">Order delivered</span>
+                                        <span class="text-muted" style="font-size:0.7rem;">3h ago</span>
+                                    </div>
+                                    <p class="mb-0 text-muted small">Order #ORD-005 was delivered.</p>
+                                </div>
+                            </li>
+                            <li class="notif-item px-3 py-2 border-bottom d-flex gap-2 align-items-start">
+                                <div class="rounded-circle bg-secondary bg-opacity-10 text-secondary d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;">
+                                    <i class="bi bi-chat-left-text"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="fw-semibold small">New comment</span>
+                                        <span class="text-muted" style="font-size:0.7rem;">Yesterday</span>
+                                    </div>
+                                    <p class="mb-0 text-muted small">Bob left a comment on Report Q1.</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="text-center py-2">
+                            <a href="#" class="btn btn-link btn-sm text-decoration-none">View all notifications</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- User Avatar -->
+                <div class="dropdown">
+                    <button class="btn btn-link p-0 border-0" id="user-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://i.pravatar.cc/40" class="rounded-circle" style="width:36px;height:36px;object-fit:cover;">
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="user-btn">
+                        <li>
+                            <div class="px-3 py-2 border-bottom">
+                                <div class="fw-semibold">Alice Martin</div>
+                                <small class="text-muted">alice@example.com</small>
+                            </div>
+                        </li>
+                        <li><a class="dropdown-item d-flex align-items-center gap-2 mt-1" href="#"><i class="bi bi-person"></i> Profile</a></li>
+                        <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i class="bi bi-gear"></i> Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="#"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mt-4 mb-1">
+            <div>
+                <h1 class="mb-0">Icons</h1>
+                <p class="text-muted mb-0">Bootstrap Icons 1.11.3 — click any icon to copy its class.</p>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <span class="text-muted small" id="icon-count"></span>
+                <input type="search" id="icon-search" class="form-control form-control-sm" placeholder="Filter icons…" style="width: 200px;">
+            </div>
+        </div>
+
+        <div id="no-results" class="text-center py-5 text-muted d-none">
+            <i class="bi bi-search fs-1 d-block mb-2 opacity-25"></i>
+            No icons match your search.
+        </div>
+
+        <!-- Interface -->
+        <div class="icon-section mt-4" data-label="Interface">
+            <h6 class="text-muted text-uppercase fw-semibold mb-3">Interface</h6>
+            <div class="icon-grid mb-4" id="grid-interface"></div>
+        </div>
+
+        <!-- Arrows & Navigation -->
+        <div class="icon-section" data-label="Arrows &amp; Navigation">
+            <h6 class="text-muted text-uppercase fw-semibold mb-3">Arrows &amp; Navigation</h6>
+            <div class="icon-grid mb-4" id="grid-arrows"></div>
+        </div>
+
+        <!-- Communication -->
+        <div class="icon-section" data-label="Communication">
+            <h6 class="text-muted text-uppercase fw-semibold mb-3">Communication</h6>
+            <div class="icon-grid mb-4" id="grid-communication"></div>
+        </div>
+
+        <!-- Files & Folders -->
+        <div class="icon-section" data-label="Files &amp; Folders">
+            <h6 class="text-muted text-uppercase fw-semibold mb-3">Files &amp; Folders</h6>
+            <div class="icon-grid mb-4" id="grid-files"></div>
+        </div>
+
+        <!-- Media -->
+        <div class="icon-section" data-label="Media">
+            <h6 class="text-muted text-uppercase fw-semibold mb-3">Media</h6>
+            <div class="icon-grid mb-4" id="grid-media"></div>
+        </div>
+
+        <!-- Commerce -->
+        <div class="icon-section" data-label="Commerce">
+            <h6 class="text-muted text-uppercase fw-semibold mb-3">Commerce</h6>
+            <div class="icon-grid mb-4" id="grid-commerce"></div>
+        </div>
+
+        <!-- People -->
+        <div class="icon-section" data-label="People">
+            <h6 class="text-muted text-uppercase fw-semibold mb-3">People</h6>
+            <div class="icon-grid mb-4" id="grid-people"></div>
+        </div>
+
+        <!-- Data & Charts -->
+        <div class="icon-section" data-label="Data &amp; Charts">
+            <h6 class="text-muted text-uppercase fw-semibold mb-3">Data &amp; Charts</h6>
+            <div class="icon-grid mb-4" id="grid-data"></div>
+        </div>
+
+        <!-- Devices -->
+        <div class="icon-section" data-label="Devices">
+            <h6 class="text-muted text-uppercase fw-semibold mb-3">Devices</h6>
+            <div class="icon-grid mb-4" id="grid-devices"></div>
+        </div>
+
+        <!-- Security -->
+        <div class="icon-section" data-label="Security">
+            <h6 class="text-muted text-uppercase fw-semibold mb-3">Security</h6>
+            <div class="icon-grid mb-4" id="grid-security"></div>
+        </div>
+
+        <!-- Nature & Weather -->
+        <div class="icon-section" data-label="Nature &amp; Weather">
+            <h6 class="text-muted text-uppercase fw-semibold mb-3">Nature &amp; Weather</h6>
+            <div class="icon-grid mb-4" id="grid-nature"></div>
+        </div>
+
+        <!-- Misc -->
+        <div class="icon-section" data-label="Misc">
+            <h6 class="text-muted text-uppercase fw-semibold mb-3">Misc</h6>
+            <div class="icon-grid mb-4" id="grid-misc"></div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-4 pt-4 pb-3 border-top">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+                <span class="text-muted small">&copy; 2026 CleanBoard. All rights reserved.</span>
+                <div class="d-flex gap-3">
+                    <a href="#" class="text-muted small text-decoration-none">Privacy Policy</a>
+                    <a href="#" class="text-muted small text-decoration-none">Terms of Service</a>
+                    <a href="#" class="text-muted small text-decoration-none">Support</a>
+                </div>
+            </div>
+        </footer>
+
+    </div><!-- /.content -->
+</div><!-- /.layout-wrapper -->
+
+<!-- Copy toast -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
+    <div id="copy-toast" class="toast align-items-center text-bg-dark border-0" role="status" aria-live="polite" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body" id="copy-toast-body">Copied!</div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap & JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // ── Icon data ──────────────────────────────────────────────────────────────
+  const CATEGORIES = {
+    "grid-interface": [
+      "house","house-fill","house-door","house-door-fill","speedometer2","grid","grid-fill",
+      "grid-3x3","grid-3x3-gap","list","list-ul","list-ol","list-task","list-check",
+      "layout-sidebar","layout-sidebar-reverse","layout-split","layout-three-columns",
+      "layout-wtf","layout-text-sidebar","layout-text-window","layout-text-window-reverse",
+      "menu-button","menu-button-fill","menu-button-wide","menu-button-wide-fill",
+      "three-dots","three-dots-vertical","dot","dot-fill","circle","circle-fill",
+      "square","square-fill","check","check2","check-lg","check2-all","check2-circle",
+      "check2-square","x","x-lg","x-circle","x-circle-fill","x-square","x-square-fill",
+      "dash","dash-lg","dash-circle","dash-circle-fill","plus","plus-lg","plus-circle",
+      "plus-circle-fill","plus-square","plus-square-fill","slash","slash-circle",
+      "slash-circle-fill","slash-square","slash-square-fill","exclamation",
+      "exclamation-lg","exclamation-circle","exclamation-circle-fill","exclamation-triangle",
+      "exclamation-triangle-fill","exclamation-square","exclamation-square-fill",
+      "question","question-lg","question-circle","question-circle-fill","question-square",
+      "question-square-fill","info","info-lg","info-circle","info-circle-fill",
+      "info-square","info-square-fill","eye","eye-fill","eye-slash","eye-slash-fill",
+      "funnel","funnel-fill","search","search-heart","search-heart-fill",
+      "zoom-in","zoom-out","filter","filter-right","filter-left","filter-circle",
+      "filter-circle-fill","filter-square","filter-square-fill",
+      "toggles","toggles2","toggle-on","toggle-off","toggle2-on","toggle2-off",
+      "sliders","sliders2","sliders2-vertical","gear","gear-fill","gear-wide",
+      "gear-wide-connected","wrench","wrench-adjustable","wrench-adjustable-circle",
+      "wrench-adjustable-circle-fill","tools","hammer","screwdriver",
+    ],
+    "grid-arrows": [
+      "arrow-up","arrow-down","arrow-left","arrow-right",
+      "arrow-up-circle","arrow-down-circle","arrow-left-circle","arrow-right-circle",
+      "arrow-up-circle-fill","arrow-down-circle-fill","arrow-left-circle-fill","arrow-right-circle-fill",
+      "arrow-up-short","arrow-down-short","arrow-left-short","arrow-right-short",
+      "arrow-bar-up","arrow-bar-down","arrow-bar-left","arrow-bar-right",
+      "arrow-clockwise","arrow-counterclockwise","arrow-repeat","arrow-return-left",
+      "arrow-return-right","arrow-90deg-up","arrow-90deg-down","arrow-90deg-left","arrow-90deg-right",
+      "arrows-angle-contract","arrows-angle-expand","arrows-collapse","arrows-expand",
+      "arrows-fullscreen","arrows-move","arrows-vertical","arrows","arrows-collapse-vertical",
+      "arrows-expand-vertical","chevron-up","chevron-down","chevron-left","chevron-right",
+      "chevron-bar-up","chevron-bar-down","chevron-bar-left","chevron-bar-right",
+      "chevron-double-up","chevron-double-down","chevron-double-left","chevron-double-right",
+      "chevron-compact-up","chevron-compact-down","chevron-compact-left","chevron-compact-right",
+      "caret-up","caret-down","caret-left","caret-right",
+      "caret-up-fill","caret-down-fill","caret-left-fill","caret-right-fill",
+      "sort-alpha-down","sort-alpha-down-alt","sort-alpha-up","sort-alpha-up-alt",
+      "sort-down","sort-down-alt","sort-up","sort-up-alt","sort-numeric-down","sort-numeric-up",
+      "box-arrow-up","box-arrow-down","box-arrow-left","box-arrow-right",
+      "box-arrow-in-up","box-arrow-in-down","box-arrow-in-left","box-arrow-in-right",
+      "box-arrow-up-left","box-arrow-up-right","box-arrow-down-left","box-arrow-down-right",
+    ],
+    "grid-communication": [
+      "chat","chat-fill","chat-dots","chat-dots-fill","chat-left","chat-left-fill",
+      "chat-left-dots","chat-left-dots-fill","chat-left-text","chat-left-text-fill",
+      "chat-left-quote","chat-left-quote-fill","chat-right","chat-right-fill",
+      "chat-right-dots","chat-right-dots-fill","chat-right-text","chat-right-text-fill",
+      "chat-right-quote","chat-right-quote-fill","chat-square","chat-square-fill",
+      "chat-square-dots","chat-square-dots-fill","chat-square-text","chat-square-text-fill",
+      "chat-square-quote","chat-square-quote-fill","chat-text","chat-text-fill",
+      "chat-quote","chat-quote-fill","chats","chats-fill","chat-heart","chat-heart-fill",
+      "envelope","envelope-fill","envelope-at","envelope-at-fill","envelope-check",
+      "envelope-check-fill","envelope-dash","envelope-dash-fill","envelope-exclamation",
+      "envelope-exclamation-fill","envelope-open","envelope-open-fill","envelope-open-heart",
+      "envelope-open-heart-fill","envelope-paper","envelope-paper-fill",
+      "envelope-paper-heart","envelope-paper-heart-fill","envelope-plus","envelope-plus-fill",
+      "envelope-slash","envelope-slash-fill","envelope-x","envelope-x-fill",
+      "bell","bell-fill","bell-slash","bell-slash-fill","bell-exclamation",
+      "bell-exclamation-fill","bell-plus","bell-plus-fill","bell-dash","bell-dash-fill",
+      "megaphone","megaphone-fill","broadcast","broadcast-pin","reception-0",
+      "reception-1","reception-2","reception-3","reception-4","wifi","wifi-off",
+      "rss","rss-fill","telephone","telephone-fill","telephone-inbound","telephone-inbound-fill",
+      "telephone-outbound","telephone-outbound-fill","telephone-x","telephone-x-fill",
+      "telephone-plus","telephone-plus-fill","telephone-minus","telephone-minus-fill",
+      "telephone-forward","telephone-forward-fill",
+    ],
+    "grid-files": [
+      "file","file-fill","file-text","file-text-fill","file-code","file-code-fill",
+      "file-earmark","file-earmark-fill","file-earmark-text","file-earmark-text-fill",
+      "file-earmark-code","file-earmark-code-fill","file-earmark-image","file-earmark-image-fill",
+      "file-earmark-pdf","file-earmark-pdf-fill","file-earmark-word","file-earmark-word-fill",
+      "file-earmark-excel","file-earmark-excel-fill","file-earmark-ppt","file-earmark-ppt-fill",
+      "file-earmark-zip","file-earmark-zip-fill","file-earmark-arrow-down","file-earmark-arrow-down-fill",
+      "file-earmark-arrow-up","file-earmark-arrow-up-fill","file-earmark-check","file-earmark-check-fill",
+      "file-earmark-x","file-earmark-x-fill","file-earmark-plus","file-earmark-plus-fill",
+      "file-earmark-minus","file-earmark-minus-fill","file-earmark-lock","file-earmark-lock-fill",
+      "file-earmark-lock2","file-earmark-lock2-fill","file-earmark-medical","file-earmark-medical-fill",
+      "file-earmark-music","file-earmark-music-fill","file-earmark-play","file-earmark-play-fill",
+      "file-earmark-post","file-earmark-post-fill","file-earmark-richtext","file-earmark-richtext-fill",
+      "file-earmark-ruled","file-earmark-ruled-fill","file-earmark-slides","file-earmark-slides-fill",
+      "file-earmark-spreadsheet","file-earmark-spreadsheet-fill","file-earmark-diff","file-earmark-diff-fill",
+      "file-earmark-break","file-earmark-break-fill","file-earmark-font","file-earmark-font-fill",
+      "files","files-alt","folder","folder-fill","folder2","folder2-open",
+      "folder-check","folder-minus","folder-plus","folder-x","folder-symlink","folder-symlink-fill",
+      "archive","archive-fill","clipboard","clipboard-fill","clipboard-check","clipboard-check-fill",
+      "clipboard-data","clipboard-data-fill","clipboard-minus","clipboard-minus-fill",
+      "clipboard-plus","clipboard-plus-fill","clipboard-x","clipboard-x-fill",
+      "clipboard-heart","clipboard-heart-fill","clipboard-pulse","clipboard2","clipboard2-fill",
+      "clipboard2-check","clipboard2-check-fill","clipboard2-data","clipboard2-data-fill",
+      "clipboard2-minus","clipboard2-minus-fill","clipboard2-plus","clipboard2-plus-fill",
+      "clipboard2-x","clipboard2-x-fill","clipboard2-heart","clipboard2-heart-fill",
+      "clipboard2-pulse","clipboard2-pulse-fill",
+    ],
+    "grid-media": [
+      "play","play-fill","play-circle","play-circle-fill","play-btn","play-btn-fill",
+      "pause","pause-fill","pause-circle","pause-circle-fill","pause-btn","pause-btn-fill",
+      "stop","stop-fill","stop-circle","stop-circle-fill","stop-btn","stop-btn-fill",
+      "skip-start","skip-start-fill","skip-start-circle","skip-start-circle-fill","skip-start-btn","skip-start-btn-fill",
+      "skip-end","skip-end-fill","skip-end-circle","skip-end-circle-fill","skip-end-btn","skip-end-btn-fill",
+      "skip-backward","skip-backward-fill","skip-backward-circle","skip-backward-circle-fill","skip-backward-btn","skip-backward-btn-fill",
+      "skip-forward","skip-forward-fill","skip-forward-circle","skip-forward-circle-fill","skip-forward-btn","skip-forward-btn-fill",
+      "rewind","rewind-fill","rewind-circle","rewind-circle-fill","rewind-btn","rewind-btn-fill",
+      "fast-forward","fast-forward-fill","fast-forward-circle","fast-forward-circle-fill","fast-forward-btn","fast-forward-btn-fill",
+      "record","record-fill","record-circle","record-circle-fill","record-btn","record-btn-fill",
+      "record2","record2-fill","shuffle","repeat","repeat-1","repeat-1-fill","repeat-fill",
+      "music-note","music-note-beamed","music-note-list","music-player","music-player-fill",
+      "headphones","headset","headset-vr","volume-mute","volume-mute-fill","volume-off",
+      "volume-off-fill","volume-down","volume-down-fill","volume-up","volume-up-fill",
+      "mic","mic-fill","mic-mute","mic-mute-fill","camera","camera-fill","camera-video",
+      "camera-video-fill","camera-video-off","camera-video-off-fill","camera-reels","camera-reels-fill",
+      "image","image-fill","images","film","display","display-fill","tv","tv-fill",
+      "projector","projector-fill","collection","collection-fill","collection-play","collection-play-fill",
+      "cassette","cassette-fill","disc","disc-fill","vinyl","vinyl-fill","boombox","boombox-fill",
+    ],
+    "grid-commerce": [
+      "bag","bag-fill","bag-check","bag-check-fill","bag-dash","bag-dash-fill",
+      "bag-heart","bag-heart-fill","bag-plus","bag-plus-fill","bag-x","bag-x-fill",
+      "cart","cart-fill","cart-check","cart-check-fill","cart-dash","cart-dash-fill",
+      "cart-plus","cart-plus-fill","cart-x","cart-x-fill","cart2","cart3","cart4",
+      "shop","shop-window","store","handbag","handbag-fill",
+      "credit-card","credit-card-fill","credit-card-2-back","credit-card-2-back-fill",
+      "credit-card-2-front","credit-card-2-front-fill","cash","cash-coin","cash-stack",
+      "coin","currency-dollar","currency-euro","currency-exchange","currency-pound",
+      "currency-bitcoin","currency-yen","tag","tag-fill","tags","tags-fill",
+      "receipt","receipt-cutoff","upc","upc-scan","gift","gift-fill","award",
+      "award-fill","trophy","trophy-fill","star","star-fill","star-half",
+      "hearts","heart","heart-fill","heart-arrow","heart-pulse","heart-pulse-fill",
+      "suit-club","suit-club-fill","suit-diamond","suit-diamond-fill",
+      "suit-heart","suit-heart-fill","suit-spade","suit-spade-fill",
+    ],
+    "grid-people": [
+      "person","person-fill","person-check","person-check-fill","person-dash",
+      "person-dash-fill","person-plus","person-plus-fill","person-x","person-x-fill",
+      "person-circle","person-badge","person-badge-fill","person-bounding-box",
+      "person-lines-fill","person-lock","person-rolodex","person-square","person-video",
+      "person-video2","person-video3","person-workspace","person-gear","person-exclamation",
+      "person-exclamation-fill","person-slash","people","people-fill",
+      "person-raised-hand","people-fill","person-walking","person-wheelchair",
+      "people","people-fill","personCircle","person-heart","person-heart-fill",
+      "person-up","person-down","person-arms-up","person-standing","person-standing-dress",
+      "person-vcard","person-vcard-fill","incognito","person-fill-gear","person-fill-check",
+      "person-fill-dash","person-fill-plus","person-fill-x","person-fill-exclamation",
+      "person-fill-slash","person-fill-up","person-fill-down","person-fill-lock",
+    ],
+    "grid-data": [
+      "bar-chart","bar-chart-fill","bar-chart-line","bar-chart-line-fill",
+      "bar-chart-steps","bar-chart-steps-fill","bar-chart-bars-fill",
+      "graph-up","graph-up-arrow","graph-down","graph-down-arrow",
+      "pie-chart","pie-chart-fill","activity","reception-0","reception-1",
+      "reception-2","reception-3","reception-4","signal","speedometer",
+      "speedometer2","table","grid","grid-fill","grid-1x2","grid-1x2-fill",
+      "grid-3x3","grid-3x3-gap","grid-3x3-gap-fill","calendar","calendar-fill",
+      "calendar-date","calendar-date-fill","calendar-check","calendar-check-fill",
+      "calendar-event","calendar-event-fill","calendar-minus","calendar-minus-fill",
+      "calendar-plus","calendar-plus-fill","calendar-range","calendar-range-fill",
+      "calendar-week","calendar-week-fill","calendar-x","calendar-x-fill",
+      "calendar2","calendar2-fill","calendar2-check","calendar2-check-fill",
+      "calendar2-date","calendar2-date-fill","calendar2-event","calendar2-event-fill",
+      "calendar2-minus","calendar2-minus-fill","calendar2-plus","calendar2-plus-fill",
+      "calendar2-range","calendar2-range-fill","calendar2-week","calendar2-week-fill",
+      "calendar2-x","calendar2-x-fill","calendar3","calendar3-event","calendar3-fill",
+      "calendar3-range","calendar3-range-fill","calendar3-week","calendar3-week-fill",
+      "clipboard-data","clipboard2-data","database","database-fill","database-add",
+      "database-check","database-dash","database-down","database-exclamation",
+      "database-fill-add","database-fill-check","database-fill-dash","database-fill-down",
+      "database-fill-exclamation","database-fill-gear","database-fill-lock",
+      "database-fill-slash","database-fill-up","database-fill-x","database-gear",
+      "database-lock","database-slash","database-up","database-x",
+    ],
+    "grid-devices": [
+      "phone","phone-fill","phone-landscape","phone-landscape-fill","phone-flip",
+      "phone-vibrate","phone-vibrate-fill","tablet","tablet-fill","tablet-landscape",
+      "tablet-landscape-fill","laptop","laptop-fill","pc","pc-fill","pc-display",
+      "pc-display-horizontal","pc-horizontal","display","display-fill",
+      "display-port","display-port-fill","modem","modem-fill","router","router-fill",
+      "hdd","hdd-fill","hdd-network","hdd-network-fill","hdd-rack","hdd-rack-fill",
+      "hdd-stack","hdd-stack-fill","server","server-fill","cpu","cpu-fill",
+      "gpu-card","gpu-card-fill","memory","sd-card","sd-card-fill","usb-drive",
+      "usb-drive-fill","usb-plug","usb-plug-fill","usb","usb-fill","usb-c",
+      "usb-c-fill","usb-micro","usb-micro-fill","usb-mini","usb-mini-fill",
+      "usb-symbol","keyboard","keyboard-fill","mouse","mouse-fill","mouse2",
+      "mouse2-fill","mouse3","mouse3-fill","headphones","headset","printer",
+      "printer-fill","smartwatch","watch","watch-fill","smartwatch2","smartwatch2-fill",
+      "joystick","controller","controller-fill","ev-station","ev-station-fill",
+      "plug","plug-fill","outlet","outlet-fill","battery","battery-fill",
+      "battery-half","battery-charging","battery-full","battery-full-fill",
+    ],
+    "grid-security": [
+      "lock","lock-fill","lock2","lock2-fill","lock-fill","unlock","unlock-fill",
+      "shield","shield-fill","shield-check","shield-check-fill","shield-exclamation",
+      "shield-exclamation-fill","shield-fill-check","shield-fill-exclamation",
+      "shield-fill-minus","shield-fill-plus","shield-fill-x","shield-lock",
+      "shield-lock-fill","shield-minus","shield-minus-fill","shield-plus","shield-plus-fill",
+      "shield-shaded","shield-slash","shield-slash-fill","shield-x","shield-x-fill",
+      "key","key-fill","key2","key2-fill","fingerprint","person-lock","person-badge",
+      "person-badge-fill","safe","safe-fill","safe2","safe2-fill","eye","eye-fill",
+      "eye-slash","eye-slash-fill","incognito","bug","bug-fill","virus","virus2",
+      "patch-check","patch-check-fill","patch-exclamation","patch-exclamation-fill",
+      "patch-minus","patch-minus-fill","patch-plus","patch-plus-fill","patch-question",
+      "patch-question-fill","passportFill","qr-code","qr-code-scan","upc-scan",
+      "bar-chart-fill","ban","ban-fill","sign-stop","sign-stop-fill",
+    ],
+    "grid-nature": [
+      "tree","tree-fill","flower1","flower2","flower3","peace","heart","heart-fill",
+      "moon","moon-fill","moon-stars","moon-stars-fill","sun","sun-fill","sunglasses",
+      "brightness-high","brightness-high-fill","brightness-low","brightness-low-fill",
+      "brightness-alt-high","brightness-alt-high-fill","brightness-alt-low","brightness-alt-low-fill",
+      "cloud","cloud-fill","cloud-arrow-up","cloud-arrow-up-fill","cloud-arrow-down",
+      "cloud-arrow-down-fill","cloud-check","cloud-check-fill","cloud-download",
+      "cloud-download-fill","cloud-drizzle","cloud-drizzle-fill","cloud-fog","cloud-fog-fill",
+      "cloud-fog2","cloud-fog2-fill","cloud-hail","cloud-hail-fill","cloud-haze","cloud-haze-fill",
+      "cloud-haze2","cloud-haze2-fill","cloud-lightning","cloud-lightning-fill","cloud-lightning-rain",
+      "cloud-lightning-rain-fill","cloud-minus","cloud-minus-fill","cloud-moon","cloud-moon-fill",
+      "cloud-plus","cloud-plus-fill","cloud-rain","cloud-rain-fill","cloud-rain-heavy",
+      "cloud-rain-heavy-fill","cloud-slash","cloud-slash-fill","cloud-sleet","cloud-sleet-fill",
+      "cloud-snow","cloud-snow-fill","cloud-sun","cloud-sun-fill","cloud-upload","cloud-upload-fill",
+      "cloud-x","cloud-x-fill","clouds","clouds-fill","thermometer","thermometer-half",
+      "thermometer-high","thermometer-low","thermometer-snow","thermometer-sun","wind","umbrella",
+      "umbrella-fill","globe","globe2","globe-americas","globe-asia-australia","globe-central-south-asia",
+      "globe-europe-africa","water","tsunami","tornado","stars","star","star-fill","snow",
+      "snow2","snow3","fire","lightning","lightning-fill","lightning-charge","lightning-charge-fill",
+    ],
+    "grid-misc": [
+      "emoji-smile","emoji-smile-fill","emoji-frown","emoji-frown-fill","emoji-expressionless",
+      "emoji-expressionless-fill","emoji-heart-eyes","emoji-heart-eyes-fill",
+      "emoji-laughing","emoji-laughing-fill","emoji-neutral","emoji-neutral-fill",
+      "emoji-sunglasses","emoji-sunglasses-fill","emoji-wink","emoji-wink-fill",
+      "emoji-dizzy","emoji-dizzy-fill","emoji-angry","emoji-angry-fill","emoji-astonished",
+      "emoji-astonished-fill","emoji-grimace","emoji-grimace-fill","emoji-kiss",
+      "emoji-kiss-fill","emoji-smile-upside-down","emoji-smile-upside-down-fill",
+      "emoji-tear","emoji-tear-fill","balloon","balloon-fill","balloon-heart","balloon-heart-fill",
+      "hammer","tools","wrench","bug","robot","robot-fill","gear","gear-fill","magic",
+      "cup","cup-fill","cup-hot","cup-hot-fill","cup-straw","cup-straw-fill","boba-tea","boba-tea-fill",
+      "egg","egg-fill","egg-fried","apple","apple-fill","bicycle","bicycle-fill",
+      "car-front","car-front-fill","car-front-fill","truck","truck-fill","truck-flatbed",
+      "bus-front","bus-front-fill","taxi-front","taxi-front-fill","train-front","train-front-fill",
+      "airplane","airplane-fill","airplane-engines","airplane-engines-fill",
+      "rocket","rocket-fill","rocket-takeoff","rocket-takeoff-fill","space","mask",
+      "globe","compass","compass-fill","map","map-fill","pin","pin-fill","pin-map",
+      "pin-map-fill","geo","geo-alt","geo-alt-fill","geo-fill","signpost",
+      "signpost-fill","signpost-2","signpost-2-fill","signpost-split","signpost-split-fill",
+      "house","house-fill","building","building-fill","buildings","buildings-fill",
+      "bank","bank2","mailbox","mailbox-fill","mailbox2","mailbox2-fill",
+      "hospital","hospital-fill","hospital-range","hospital-range-fill",
+      "mortarboard","mortarboard-fill","book","book-fill","bookshelf","bookmark",
+      "bookmark-fill","bookmark-check","bookmark-check-fill","bookmark-dash",
+      "bookmark-dash-fill","bookmark-heart","bookmark-heart-fill","bookmark-plus",
+      "bookmark-plus-fill","bookmark-star","bookmark-star-fill","bookmark-x","bookmark-x-fill",
+      "bookmarks","bookmarks-fill","journal","journal-album","journal-arrow-down",
+      "journal-arrow-up","journal-bookmark","journal-bookmark-fill","journal-check",
+      "journal-code","journal-medical","journal-minus","journal-plus","journal-richtext",
+      "journal-text","journal-x","journals","pencil","pencil-fill","pencil-square",
+      "pen","pen-fill","eraser","eraser-fill","highlighter","trash","trash-fill",
+      "trash2","trash2-fill","trash3","trash3-fill","trash3-horizontal","trash3-horizontal-fill",
+    ],
+  };
+
+  // ── Render icons ──────────────────────────────────────────────────────────
+  const toast    = new bootstrap.Toast(document.getElementById("copy-toast"), { delay: 1800 });
+  const toastMsg = document.getElementById("copy-toast-body");
+
+  function copyClass(cls) {
+    navigator.clipboard.writeText(`bi-${cls}`).then(() => {
+      toastMsg.textContent = `Copied: bi-${cls}`;
+      toast.show();
+    });
+  }
+
+  function makeItem(cls) {
+    const div = document.createElement("div");
+    div.className = "icon-item";
+    div.dataset.icon = cls;
+    div.innerHTML = `<i class="bi bi-${cls}"></i><span>${cls}</span>`;
+    div.addEventListener("click", () => {
+      copyClass(cls);
+      div.classList.add("copied");
+      setTimeout(() => div.classList.remove("copied"), 1000);
+    });
+    return div;
+  }
+
+  let totalCount = 0;
+  for (const [gridId, icons] of Object.entries(CATEGORIES)) {
+    const grid = document.getElementById(gridId);
+    icons.forEach(cls => { grid.appendChild(makeItem(cls)); totalCount++; });
+  }
+  document.getElementById("icon-count").textContent = `${totalCount} icons`;
+
+  // ── Search / filter ───────────────────────────────────────────────────────
+  document.getElementById("icon-search").addEventListener("input", function () {
+    const q = this.value.trim().toLowerCase();
+    let visible = 0;
+
+    document.querySelectorAll(".icon-section").forEach(section => {
+      const items = section.querySelectorAll(".icon-item");
+      let sectionVisible = 0;
+      items.forEach(item => {
+        const match = !q || item.dataset.icon.includes(q);
+        item.style.display = match ? "" : "none";
+        if (match) { visible++; sectionVisible++; }
+      });
+      section.classList.toggle("section-hidden", sectionVisible === 0);
+    });
+
+    document.getElementById("icon-count").textContent = q
+      ? `${visible} of ${totalCount} icons`
+      : `${totalCount} icons`;
+    document.getElementById("no-results").classList.toggle("d-none", visible > 0);
+  });
+
+  // ── Sidebar / misc ────────────────────────────────────────────────────────
+  document.getElementById("forms-submenu").addEventListener("show.bs.collapse", () => {
+    document.querySelector("[href='#forms-submenu'] .submenu-arrow").style.transform = "rotate(180deg)";
+  });
+  document.getElementById("forms-submenu").addEventListener("hide.bs.collapse", () => {
+    document.querySelector("[href='#forms-submenu'] .submenu-arrow").style.transform = "rotate(0deg)";
+  });
+
+  const menuBtn = document.getElementById("menu-btn");
+  const sidebar = document.getElementById("sidebar");
+  const backdrop = document.getElementById("sidebar-backdrop");
+  function openSidebar()  { sidebar.classList.add("open");    backdrop.classList.add("show"); }
+  function closeSidebar() { sidebar.classList.remove("open"); backdrop.classList.remove("show"); }
+  menuBtn.addEventListener("click", () => sidebar.classList.contains("open") ? closeSidebar() : openSidebar());
+  backdrop.addEventListener("click", closeSidebar);
+
+  document.getElementById("mark-all-read").addEventListener("click", (e) => {
+    e.preventDefault();
+    document.querySelectorAll(".notif-item.unread").forEach(el => el.classList.remove("unread"));
+    const badge = document.getElementById("notif-badge");
+    badge.textContent = "0";
+    badge.classList.add("d-none");
+  });
+</script>
+</body>
+</html>
