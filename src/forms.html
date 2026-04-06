@@ -72,9 +72,20 @@
           position: fixed;
           height: 100%;
           left: -250px;
+          z-index: 200;
         }
         .sidebar.open {
           left: 0;
+        }
+        .sidebar-backdrop {
+          display: none;
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.4);
+          z-index: 199;
+        }
+        .sidebar-backdrop.show {
+          display: block;
         }
       }
     </style>
@@ -85,7 +96,7 @@
 
     <!-- Sidebar -->
     <aside id="sidebar" class="sidebar">
-        <h4 class="mb-4">MyAdmin</h4>
+        <h4 class="mb-4">CleanBoard</h4>
         <nav class="nav flex-column">
             <a class="nav-link" href="index.html"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
             <a class="nav-link" href="tables.html"><i class="bi bi-table me-2"></i> Tables</a>
@@ -97,8 +108,11 @@
             <a class="nav-link" href="modals.html"><i class="bi bi-layout-modal me-2"></i> Modals</a>
             <a class="nav-link" href="#"><i class="bi bi-people me-2"></i> Users</a>
             <a class="nav-link" href="#"><i class="bi bi-gear me-2"></i> Settings</a>
+            <hr class="border-secondary my-2">
+            <a class="nav-link" href="404.html"><i class="bi bi-question-circle me-2"></i> 404</a>
         </nav>
     </aside>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
 
     <!-- Main Content -->
     <div class="content">
@@ -424,7 +438,7 @@
         <!-- Footer -->
         <footer class="mt-4 pt-4 pb-3 border-top">
             <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
-                <span class="text-muted small">&copy; 2026 MyAdmin. All rights reserved.</span>
+                <span class="text-muted small">&copy; 2026 CleanBoard. All rights reserved.</span>
                 <div class="d-flex gap-3">
                     <a href="#" class="text-muted small text-decoration-none">Privacy Policy</a>
                     <a href="#" class="text-muted small text-decoration-none">Terms of Service</a>
@@ -443,7 +457,11 @@
   // Mobile sidebar toggle
   const menuBtn = document.getElementById("menu-btn");
   const sidebar = document.getElementById("sidebar");
-  menuBtn.addEventListener("click", () => sidebar.classList.toggle("open"));
+  const backdrop = document.getElementById("sidebar-backdrop");
+  function openSidebar()  { sidebar.classList.add("open");    backdrop.classList.add("show"); }
+  function closeSidebar() { sidebar.classList.remove("open"); backdrop.classList.remove("show"); }
+  menuBtn.addEventListener("click", () => sidebar.classList.contains("open") ? closeSidebar() : openSidebar());
+  backdrop.addEventListener("click", closeSidebar);
 
   // Notifications: mark all as read
   document.getElementById("mark-all-read").addEventListener("click", (e) => {
