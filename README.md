@@ -1,50 +1,65 @@
-# Clean Board
+# CleanBoard
 
-A clean and modern admin dashboard template built with Bootstrap 5. This template provides a responsive layout with a sidebar navigation, topbar with notifications, and various pre-built UI components.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![No build tools](https://img.shields.io/badge/build-none-brightgreen.svg)]()
+
+A clean, modern admin dashboard HTML template built with Bootstrap 5. No build tools, no npm, no dependencies — just open a file and go.
+
+## Preview
+
+> Add a `preview.png` screenshot to the repo root and uncomment the line below.
+
+<!-- ![CleanBoard Preview](preview.png) -->
 
 ## Features
 
-- **Responsive Layout**: Mobile-friendly design with collapsible sidebar
-- **Modern UI Components**: Cards, tables, forms, tabs, and modals
-- **Notification System**: Interactive notification dropdown with unread indicators
-- **User Profile Menu**: Dropdown menu with user information and actions
-- **Authentication Pages**: Pre-built login and signup pages
-- **Multiple Page Templates**:
-  - Dashboard with stat widgets
-  - Data tables
-  - Form components (inputs, checks, radios, floating labels)
-  - Card layouts (stat cards, profile cards, pricing cards)
-  - Tabs and navigation
-  - Modal dialogs
+- **Responsive layout** — mobile-friendly sidebar that collapses below 991px
+- **WCAG 2.1 Level AA** — accessible markup, correct color contrast, ARIA attributes throughout
+- **Dashboard & stat widgets** — key metrics with icon highlights
+- **Notification system** — interactive dropdown with unread badge
+- **User profile menu** — dropdown with avatar and user actions
+- **Component library** — forms, tables, cards, tabs, modals, alerts, buttons, icons
+- **Auth pages** — pre-built login and sign-up screens
+- **404 page** — styled error page
+- **Zero dependencies** — Bootstrap and Icons loaded from CDN; no npm, no build step
+
+## Pages
+
+| File | Description |
+|------|-------------|
+| `index.html` | Main dashboard with stat widgets and notifications |
+| `login.html` | Login page with social auth options |
+| `signup.html` | User registration form |
+| `tables.html` | Data table examples |
+| `forms.html` | Inputs, checkboxes, radios, floating labels |
+| `cards.html` | Stat cards, profile cards, pricing cards |
+| `tabs.html` | Tab navigation components |
+| `modals.html` | Modal dialog examples |
+| `alerts.html` | Alert and notification components |
+| `buttons.html` | Button styles and variants |
+| `icons.html` | Bootstrap Icons showcase |
+| `404.html` | Styled error page |
 
 ## Tech Stack
 
-- **Bootstrap 5.3.3**: CSS framework for responsive design
-- **Bootstrap Icons 1.11.3**: Icon library
-- **Vanilla JavaScript**: No framework dependencies
+- **Bootstrap 5.3.3** — responsive grid and UI components (CDN)
+- **Bootstrap Icons 1.11.3** — icon library (CDN)
+- **Vanilla JavaScript** — sidebar toggle and page interactions, no framework
 
 ## Getting Started
 
-### Prerequisites
+No installation required.
 
-No build tools or package managers required. This is a static HTML template that runs directly in the browser.
-
-### Installation
-
-1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/your-username/clean-board.git
 cd clean-board
 ```
 
-2. Open any HTML file in your browser:
-```bash
-# Using a simple HTTP server (recommended)
-python3 -m http.server 8000
-# Then navigate to http://localhost:8000/src/
+Open `src/index.html` directly in your browser, or serve it locally:
 
-# Or open directly in browser
-open src/index.html
+```bash
+python3 -m http.server 8080 --directory src
+# → http://localhost:8080
 ```
 
 ## Project Structure
@@ -52,71 +67,72 @@ open src/index.html
 ```
 clean-board/
 ├── src/
-│   ├── index.html      # Main dashboard page
+│   ├── index.html      # Main dashboard
 │   ├── login.html      # Login page
 │   ├── signup.html     # Sign up page
-│   ├── tables.html     # Data tables examples
+│   ├── tables.html     # Data tables
 │   ├── forms.html      # Form components
 │   ├── cards.html      # Card layouts
 │   ├── tabs.html       # Tab navigation
-│   └── modals.html     # Modal dialogs
+│   ├── modals.html     # Modal dialogs
+│   ├── alerts.html     # Alert components
+│   ├── buttons.html    # Button variants
+│   ├── icons.html      # Icons showcase
+│   ├── 404.html        # Error page
+│   ├── style.css       # Shared styles
+│   └── app.js          # Shared scripts
 └── README.md
 ```
-
-## Pages Overview
-
-### Dashboard (`index.html`)
-- Main landing page with welcome message
-- Stat widgets showing metrics (users, revenue, sessions)
-- Notification bell with dropdown
-- User profile menu
-
-### Authentication
-- **Login** (`login.html`): Email/password login with social auth options
-- **Sign Up** (`signup.html`): User registration form
-
-### Components
-- **Tables** (`tables.html`): Data table examples
-- **Forms** (`forms.html`): Input fields, checkboxes, radios, floating labels
-- **Cards** (`cards.html`): Stat cards, profile cards, pricing cards, colored cards
-- **Tabs** (`tabs.html`): Tab navigation components
-- **Modals** (`modals.html`): Modal dialog examples
 
 ## Customization
 
 ### Colors
-The template uses Bootstrap's default color scheme. To customize:
-- Modify the CSS variables in the `<style>` section of each page
-- Primary color: `#1f2937` (sidebar background)
-- Background: `#f5f6fa`
+
+CSS variables are defined at the top of each page's `<style>` block:
+
+```css
+:root {
+    --sidebar-bg: #1f2937;
+    --page-bg: #f5f6fa;
+}
+```
 
 ### Branding
-Update the brand name "MyAdmin" in the sidebar:
+
+Update the brand name in the sidebar of each page:
+
 ```html
-<h4 class="mb-4">MyAdmin</h4>
+<h4 class="mb-4">CleanBoard</h4>
 ```
 
-### Navigation
-Edit the sidebar navigation in each page to add/remove menu items:
-```html
-<nav class="nav flex-column">
-    <a class="nav-link" href="#"><i class="bi bi-icon me-2"></i> Menu Item</a>
-</nav>
-```
+### Adding Pages
+
+Copy any existing page, update the `<title>` tag, set the correct `active` class on the sidebar nav link, and add your content inside `<main>`.
+
+## Accessibility
+
+CleanBoard targets **WCAG 2.1 Level AA** compliance:
+
+- All icons use `aria-hidden="true"` inside labeled elements
+- All `<nav>` elements have descriptive `aria-label` attributes
+- Color contrast meets the 4.5:1 minimum ratio
+- Interactive elements have accessible names
+- A skip-to-content link is included on each page
 
 ## Browser Support
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
+Chrome, Firefox, Safari, and Edge (latest versions).
+
+## Contributing
+
+Bug reports and suggestions are welcome — open an issue or submit a pull request.
 
 ## License
 
-This project is available for personal and commercial use.
+MIT — see [LICENSE](LICENSE) for details.
 
 ## Credits
 
-- Built with [Bootstrap 5](https://getbootstrap.com/)
-- Icons by [Bootstrap Icons](https://icons.getbootstrap.com/)
-- Avatar images from [Pravatar](https://pravatar.cc/)
+- [Bootstrap](https://getbootstrap.com/) — CSS framework
+- [Bootstrap Icons](https://icons.getbootstrap.com/) — icon library
+- [Pravatar](https://pravatar.cc/) — placeholder avatar images
